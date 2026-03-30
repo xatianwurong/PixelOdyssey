@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <glm/glm.hpp>
 
 /**
@@ -13,28 +13,28 @@
 class Camera
 {
 public:
-    Camera();
-    ~Camera() = default;
+  Camera();
+  ~Camera() = default;
 
-    void SetPosition(const glm::vec3& position);
-    void SetTarget(const glm::vec3& target);
-    void SetUp(const glm::vec3& up);
-    void SetFieldOfView(float fov);
-    void SetAspectRatio(float aspect);
-    void SetNearPlane(float nearPlane);
-    void SetFarPlane(float farPlane);
+  void SetPosition(const glm::vec3& position);
+  void SetTarget(const glm::vec3& target);
+  void SetUp(const glm::vec3& up);
+  void SetFieldOfView(float fov);
+  void SetAspectRatio(float aspect);
+  void SetNearPlane(float nearPlane);
+  void SetFarPlane(float farPlane);
 
-    glm::mat4 GetViewMatrix() const;
-    glm::mat4 GetProjectionMatrix() const;
-    glm::mat4 GetViewProjectionMatrix() const;
+  glm::mat4 GetViewMatrix() const;
+  glm::mat4 GetProjectionMatrix() const;
+  glm::mat4 GetViewProjectionMatrix() const;
 
 private:
-    // Camera parameters
-    glm::vec3 m_position;   // Camera position in world space
-    glm::vec3 m_target;     // Camera target (look-at point)
-    glm::vec3 m_up;         // Camera up vector
-    float m_fieldOfView;    // Field of view in degrees
-    float m_aspectRatio;    // Aspect ratio (width/height)
-    float m_nearPlane;      // Near clipping plane
-    float m_farPlane;       // Far clipping plane
+  // Camera parameters
+  glm::vec3 m_position;   // Camera position in world space
+  glm::vec3 m_target;     // Camera target (look-at point)
+  glm::vec3 m_up;         // Camera up vector
+  float m_fieldOfView;    // Field of view in degrees
+  float m_aspectRatio;    // Aspect ratio (width/height)
+  float m_nearPlane;      // Near clipping plane
+  float m_farPlane;       // Far clipping plane
 };

@@ -16,21 +16,21 @@
 class SceneManager
 {
 public:
-    static SceneManager& Instance();
-    ~SceneManager() = default;
+  static SceneManager& Instance();
+  ~SceneManager() = default;
 
-    void AddScene(Scene* scene);
-    void RemoveScene(const std::string& name);
-    Scene* GetScene(const std::string& name);
-    void SetActiveScene(const std::string& name);
-    Scene* GetActiveScene();
+  void AddScene(Scene* scene);
+  void RemoveScene(const std::string& name);
+  Scene* GetScene(const std::string& name);
+  void SetActiveScene(const std::string& name);
+  Scene* GetActiveScene();
 
-    void Update(float deltaTime);
-    void Draw();
+  void Update(float deltaTime);
+  void Draw();
 
 private:
-    SceneManager() = default;
+  SceneManager() = default;
 
-    std::unordered_map<std::string, std::unique_ptr<Scene>> m_scenes;
-    Scene* m_activeScene = nullptr;
+  std::unordered_map<std::string, std::unique_ptr<Scene>> m_scenes;
+  Scene* m_activeScene = nullptr;
 };

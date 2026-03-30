@@ -17,22 +17,22 @@
 class Scene
 {
 public:
-    Scene(const std::string& name);
-    ~Scene() = default;
+  Scene(const std::string& name);
+  ~Scene() = default;
 
-    void AddObject(Object* object);
-    void RemoveObject(const std::string& id);
-    Object* GetObject(const std::string& id);
-    void Clear();
+  void AddObject(Object* object);
+  void RemoveObject(const std::string& id);
+  Object* GetObject(const std::string& id);
+  void Clear();
 
-    const std::string& GetName() const { return m_name; }
+  const std::string& GetName() const { return m_name; }
 
-    void Update(float deltaTime);
-    void Draw();
+  void Update(float deltaTime);
+  void Draw();
 
 private:
-    std::string m_name;
-    std::unordered_map<std::string, std::unique_ptr<Object>> m_objects;
-    std::vector<Object*> m_updateOrder;
-    std::vector<Object*> m_drawOrder;
+  std::string m_name;
+  std::unordered_map<std::string, std::unique_ptr<Object>> m_objects;
+  std::vector<Object*> m_updateOrder;
+  std::vector<Object*> m_drawOrder;
 };

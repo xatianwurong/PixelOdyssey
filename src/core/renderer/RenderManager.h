@@ -15,15 +15,15 @@
 class RenderManager
 {
 public:
-    static RenderManager& Instance();
-    ~RenderManager();
+  static RenderManager& Instance();
+  ~RenderManager();
 
-    void AddObject(Object* object);
-    void RemoveObject(Object* object);
-    void Draw();
+  void AddObject(Object* object);
+  void RemoveObject(Object* object);
+  void Draw();
 
 private:
-    RenderManager();
-    
-    std::unordered_map<std::string, std::unique_ptr<Object>> m_objects;
+  RenderManager();
+
+  std::unordered_map<std::string, std::unique_ptr<Object>> m_objects;
 };

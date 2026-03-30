@@ -11,19 +11,9 @@
 #include "../../core/entity/Square.h"
 #include "../../core/entity/Circle.h"
 #include "../../core/entity/Rectangle.h"
-#include "../../core/entity/Ellipse.h"
 #include "../../core/entity/Arrow.h"
-class Rectangle;
-class Ellipse;
-class Arrow;
-
 #include "../../core/entity/Cube.h"
-#include "../../core/entity/Circle.h"
-#include "../../core/entity/Square.h"
-#include "../../core/entity/Triangle.h"
-#include "../../core/entity/Rectangle.h"
 #include "../../core/entity/Ellipse.h"
-#include "../../core/entity/Arrow.h"
 #include "../../core/entity/Star.h"
 #include "../../core/entity/Heart.h"
 #include "../../core/entity/Pentagram.h"
