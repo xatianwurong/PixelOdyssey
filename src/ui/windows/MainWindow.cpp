@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+﻿#include "MainWindow.h"
 #include <GL/glew.h>
 #include <afxdialogex.h>
 #include <fstream>
@@ -460,145 +460,148 @@ bool CMainWindow::InitOpenGL()
     m_pSceneManager->SetActiveScene("TestScene");
     LOG(_T("[OpenGL] Test scene created and set as active"));
 
-    float positions[][2] = {
-      {-1.5f, 1.5f},  
-      {0.0f, 1.5f},   
-      {1.5f, 1.5f},   
-      {-1.5f, 0.0f},  
-      {0.0f, 0.0f},   
-      {1.5f, 0.0f},   
-      {-1.5f, -1.5f}, 
-      {0.0f, -1.5f},  
-      {1.5f, -1.5f},  
-      {-1.0f, 1.0f},  
-      {1.0f, 1.0f},   
-      {-1.0f, -1.0f}, 
-      {1.0f, -1.0f},  
-      {-0.5f, 0.5f},  
-      {0.5f, 0.5f},   
-      {-0.5f, -0.5f}, 
-      {0.5f, -0.5f},  
-      {-1.2f, 0.7f},  
-      {1.2f, 0.7f},   
-      {-1.2f, -0.7f}, 
-      {1.2f, -0.7f},  
-      {0.0f, 1.0f},   
-      {0.0f, -1.0f}   
+    struct EntityInfo {
+      std::string type;
+      glm::vec4 color;
     };
 
-    glm::vec4 colors[] = {
-      glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),  
-      glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),  
-      glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),  
-      glm::vec4(1.0f, 1.0f, 0.0f, 1.0f),  
-      glm::vec4(1.0f, 0.0f, 1.0f, 1.0f),  
-      glm::vec4(0.0f, 1.0f, 1.0f, 1.0f),  
-      glm::vec4(1.0f, 0.5f, 0.0f, 1.0f),  
-      glm::vec4(0.5f, 0.0f, 1.0f, 1.0f),  
-      glm::vec4(0.5f, 1.0f, 0.0f, 1.0f),  
-      glm::vec4(1.0f, 0.0f, 0.5f, 1.0f),  
-      glm::vec4(0.0f, 0.5f, 1.0f, 1.0f),  
-      glm::vec4(1.0f, 1.0f, 0.5f, 1.0f),  
-      glm::vec4(0.5f, 1.0f, 1.0f, 1.0f),  
-      glm::vec4(1.0f, 0.5f, 0.5f, 1.0f),  
-      glm::vec4(0.5f, 0.5f, 1.0f, 1.0f),  
-      glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),  
-      glm::vec4(0.5f, 0.5f, 0.5f, 1.0f),  
-      glm::vec4(0.7f, 0.3f, 0.0f, 1.0f),  
-      glm::vec4(0.3f, 0.7f, 0.0f, 1.0f),  
-      glm::vec4(0.3f, 0.0f, 0.7f, 1.0f),  
-      glm::vec4(0.7f, 0.7f, 0.0f, 1.0f),  
-      glm::vec4(0.7f, 0.0f, 0.7f, 1.0f),  
-      glm::vec4(0.0f, 0.7f, 0.7f, 1.0f)   
+    std::vector<EntityInfo> entityInfos = {
+        {"Triangle", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+        {"Square", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+        {"Circle", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)},
+        {"Arrow", glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)},
+        {"Star", glm::vec4(1.0f, 0.5f, 0.0f, 1.0f)},
+        {"Heart", glm::vec4(0.5f, 0.0f, 1.0f, 1.0f)},
+        {"Pentagram", glm::vec4(0.5f, 1.0f, 0.0f, 1.0f)},
+        {"Cup", glm::vec4(1.0f, 0.0f, 0.5f, 1.0f)},
+        {"Book", glm::vec4(0.0f, 0.5f, 1.0f, 1.0f)},
+        {"Pencil", glm::vec4(1.0f, 1.0f, 0.5f, 1.0f)},
+        {"House", glm::vec4(0.5f, 1.0f, 1.0f, 1.0f)},
+        {"Car", glm::vec4(1.0f, 0.5f, 0.5f, 1.0f)},
+        {"Cat", glm::vec4(0.5f, 0.5f, 1.0f, 1.0f)},
+        {"Dog", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)},
+        {"Bird", glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)},
+        {"Fish", glm::vec4(0.7f, 0.3f, 0.0f, 1.0f)},
+        {"StandingPerson", glm::vec4(0.3f, 0.7f, 0.0f, 1.0f)},
+        {"SittingPerson", glm::vec4(0.3f, 0.0f, 0.7f, 1.0f)},
+        {"RunningPerson", glm::vec4(0.7f, 0.7f, 0.0f, 1.0f)}
     };
 
-    float scale = 0.4f;
+    float scale = 0.2f; // 进一步减小实体大小，确保所有实体大小一致
+    int entityCount = entityInfos.size();
 
-    Triangle* triangle = new Triangle(glm::vec2(positions[0][0], positions[0][1]), colors[0], scale);
-    testScene->AddObject(triangle);
-    LOG(_T("[OpenGL] Triangle entity added to scene"));
+    int gridCols = 5; // 固定5列布局，确保均匀分布
+    int gridRows = (entityCount + gridCols - 1) / gridCols;
 
-    Square* square = new Square(glm::vec2(positions[1][0], positions[1][1]), colors[1], scale);
-    testScene->AddObject(square);
-    LOG(_T("[OpenGL] Square entity added to scene"));
+    float spacingX = 2.6f / (gridCols + 1); // 大幅增加间距以避免拥挤
+    float spacingY = 2.6f / (gridRows + 1);
 
-    Circle* circle = new Circle(glm::vec2(positions[2][0], positions[2][1]), colors[2], scale);
-    testScene->AddObject(circle);
-    LOG(_T("[OpenGL] Circle entity added to scene"));
+    for (int i = 0; i < entityCount; i++) {
+      int row = i / gridCols;
+      int col = i % gridCols;
 
-    //// 矩形
-    //Rectangle* rectangle = new Rectangle(glm::vec2(positions[3][0], positions[3][1]), colors[3], scale);
-    //testScene->AddObject(rectangle);
-    //LOG(_T("[OpenGL] Rectangle entity added to scene"));
+      float x = -1.3f + (col + 1) * spacingX; // 进一步扩展布局范围
+      float y = 1.3f - (row + 1) * spacingY;
 
-    //// 椭圆
-    //Ellipse* ellipse = new Ellipse(glm::vec2(positions[4][0], positions[4][1]), colors[4], scale);
-    //testScene->AddObject(ellipse);
-    //LOG(_T("[OpenGL] Ellipse entity added to scene"));
+      glm::vec2 position(x, y);
+      glm::vec4 color = entityInfos[i].color;
 
-    Arrow* arrow = new Arrow(glm::vec2(positions[5][0], positions[5][1]), colors[5], scale);
-    testScene->AddObject(arrow);
-    LOG(_T("[OpenGL] Arrow entity added to scene"));
-
-    Star* star = new Star(glm::vec2(positions[6][0], positions[6][1]), colors[6], scale);
-    testScene->AddObject(star);
-    LOG(_T("[OpenGL] Star entity added to scene"));
-
-    Heart* heart = new Heart(glm::vec2(positions[7][0], positions[7][1]), colors[7], scale);
-    testScene->AddObject(heart);
-    LOG(_T("[OpenGL] Heart entity added to scene"));
-
-    Pentagram* pentagram = new Pentagram(glm::vec2(positions[8][0], positions[8][1]), colors[8], scale);
-    testScene->AddObject(pentagram);
-    LOG(_T("[OpenGL] Pentagram entity added to scene"));
-
-    Cup* cup = new Cup(glm::vec2(positions[9][0], positions[9][1]), colors[9], scale);
-    testScene->AddObject(cup);
-    LOG(_T("[OpenGL] Cup entity added to scene"));
-
-    Book* book = new Book(glm::vec2(positions[10][0], positions[10][1]), colors[10], scale);
-    testScene->AddObject(book);
-    LOG(_T("[OpenGL] Book entity added to scene"));
-
-    Pencil* pencil = new Pencil(glm::vec2(positions[11][0], positions[11][1]), colors[11], scale);
-    testScene->AddObject(pencil);
-    LOG(_T("[OpenGL] Pencil entity added to scene"));
-
-    House* house = new House(glm::vec2(positions[12][0], positions[12][1]), colors[12], scale);
-    testScene->AddObject(house);
-    LOG(_T("[OpenGL] House entity added to scene"));
-
-    Car* car = new Car(glm::vec2(positions[13][0], positions[13][1]), colors[13], scale);
-    testScene->AddObject(car);
-    LOG(_T("[OpenGL] Car entity added to scene"));
-
-    Cat* cat = new Cat(glm::vec2(positions[14][0], positions[14][1]), colors[14], scale);
-    testScene->AddObject(cat);
-    LOG(_T("[OpenGL] Cat entity added to scene"));
-
-    Dog* dog = new Dog(glm::vec2(positions[15][0], positions[15][1]), colors[15], scale);
-    testScene->AddObject(dog);
-    LOG(_T("[OpenGL] Dog entity added to scene"));
-
-    Bird* bird = new Bird(glm::vec2(positions[16][0], positions[16][1]), colors[16], scale);
-    testScene->AddObject(bird);
-    LOG(_T("[OpenGL] Bird entity added to scene"));
-
-    Fish* fish = new Fish(glm::vec2(positions[17][0], positions[17][1]), colors[17], scale);
-    testScene->AddObject(fish);
-    LOG(_T("[OpenGL] Fish entity added to scene"));
-
-    StandingPerson* standingPerson = new StandingPerson(glm::vec2(positions[18][0], positions[18][1]), colors[18], scale);
-    testScene->AddObject(standingPerson);
-    LOG(_T("[OpenGL] StandingPerson entity added to scene"));
-
-    SittingPerson* sittingPerson = new SittingPerson(glm::vec2(positions[19][0], positions[19][1]), colors[19], scale);
-    testScene->AddObject(sittingPerson);
-    LOG(_T("[OpenGL] SittingPerson entity added to scene"));
-
-    RunningPerson* runningPerson = new RunningPerson(glm::vec2(positions[20][0], positions[20][1]), colors[20], scale);
-    testScene->AddObject(runningPerson);
-    LOG(_T("[OpenGL] RunningPerson entity added to scene"));
+      if (entityInfos[i].type == "Triangle") {
+        Triangle* triangle = new Triangle(position, color, scale);
+        testScene->AddObject(triangle);
+        LOG(_T("[OpenGL] Triangle entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Square") {
+        Square* square = new Square(position, color, scale);
+        testScene->AddObject(square);
+        LOG(_T("[OpenGL] Square entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Circle") {
+        Circle* circle = new Circle(position, color, scale);
+        testScene->AddObject(circle);
+        LOG(_T("[OpenGL] Circle entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Arrow") {
+        Arrow* arrow = new Arrow(position, color, scale);
+        testScene->AddObject(arrow);
+        LOG(_T("[OpenGL] Arrow entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Star") {
+        Star* star = new Star(position, color, scale);
+        testScene->AddObject(star);
+        LOG(_T("[OpenGL] Star entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Heart") {
+        Heart* heart = new Heart(position, color, scale);
+        testScene->AddObject(heart);
+        LOG(_T("[OpenGL] Heart entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Pentagram") {
+        Pentagram* pentagram = new Pentagram(position, color, scale);
+        testScene->AddObject(pentagram);
+        LOG(_T("[OpenGL] Pentagram entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Cup") {
+        Cup* cup = new Cup(position, color, scale);
+        testScene->AddObject(cup);
+        LOG(_T("[OpenGL] Cup entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Book") {
+        Book* book = new Book(position, color, scale);
+        testScene->AddObject(book);
+        LOG(_T("[OpenGL] Book entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Pencil") {
+        Pencil* pencil = new Pencil(position, color, scale);
+        testScene->AddObject(pencil);
+        LOG(_T("[OpenGL] Pencil entity added to scene"));
+      }
+      else if (entityInfos[i].type == "House") {
+        House* house = new House(position, color, scale);
+        testScene->AddObject(house);
+        LOG(_T("[OpenGL] House entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Car") {
+        Car* car = new Car(position, color, scale);
+        testScene->AddObject(car);
+        LOG(_T("[OpenGL] Car entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Cat") {
+        Cat* cat = new Cat(position, color, scale);
+        testScene->AddObject(cat);
+        LOG(_T("[OpenGL] Cat entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Dog") {
+        Dog* dog = new Dog(position, color, scale);
+        testScene->AddObject(dog);
+        LOG(_T("[OpenGL] Dog entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Bird") {
+        Bird* bird = new Bird(position, color, scale);
+        testScene->AddObject(bird);
+        LOG(_T("[OpenGL] Bird entity added to scene"));
+      }
+      else if (entityInfos[i].type == "Fish") {
+        Fish* fish = new Fish(position, color, scale);
+        testScene->AddObject(fish);
+        LOG(_T("[OpenGL] Fish entity added to scene"));
+      }
+      else if (entityInfos[i].type == "StandingPerson") {
+        StandingPerson* standingPerson = new StandingPerson(position, color, scale);
+        testScene->AddObject(standingPerson);
+        LOG(_T("[OpenGL] StandingPerson entity added to scene"));
+      }
+      else if (entityInfos[i].type == "SittingPerson") {
+        SittingPerson* sittingPerson = new SittingPerson(position, color, scale);
+        testScene->AddObject(sittingPerson);
+        LOG(_T("[OpenGL] SittingPerson entity added to scene"));
+      }
+      else if (entityInfos[i].type == "RunningPerson") {
+        RunningPerson* runningPerson = new RunningPerson(position, color, scale);
+        testScene->AddObject(runningPerson);
+        LOG(_T("[OpenGL] RunningPerson entity added to scene"));
+      }
+    }
 
     //Cube* cube = new Cube(glm::vec2(positions[21][0], positions[21][1]), colors[21], scale);
     //testScene->AddObject(cube);
