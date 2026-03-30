@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <string>
 #include <unordered_map>
 #include <memory>
@@ -6,6 +6,15 @@
 class Shader;
 class Texture;
 
+/**
+ * @class ResourceManager
+ * @brief 资源管理器类
+ * @details 管理着色器和纹理等资源的加载、获取和卸载
+ * @功能描述 提供资源的加载、获取和卸载功能
+ * @设计目的 使用单例模式，确保资源的统一管理和避免重复加载
+ * @使用场景 用于管理游戏或应用中的各种资源
+ * @关键实现 使用单例模式，通过Instance()方法获取实例
+ */
 class ResourceManager
 {
 public:

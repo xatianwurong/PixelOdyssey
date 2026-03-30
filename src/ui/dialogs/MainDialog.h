@@ -10,6 +10,15 @@
 
 #include "../../core/scene/SceneManager.h"
 
+/**
+ * @class CMainDialog
+ * @brief 主对话框类
+ * @details 应用程序的主对话框，包含OpenGL渲染区域和控制按钮
+ * @功能描述 管理对话框创建、OpenGL初始化、渲染和用户交互
+ * @设计目的 提供应用程序的对话框界面和用户交互功能
+ * @使用场景 作为应用程序的主对话框，处理用户输入和渲染
+ * @关键实现 包含OpenGL渲染区域、控制按钮、相机设置等UI元素
+ */
 class CMainDialog : public CDialogEx
 {
 public:

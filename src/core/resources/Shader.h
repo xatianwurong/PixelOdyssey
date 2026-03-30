@@ -1,14 +1,14 @@
-﻿#pragma once
+#pragma once
 #include <string>
 
 /**
  * @class Shader
  * @brief 着色器类
  * @details 管理OpenGL着色器程序，包括顶点着色器、片段着色器和计算着色器
- * @coreResponsibility 负责着色器的编译、链接和管理
- * @designIntent 封装OpenGL着色器操作，提供简洁的接口
- * @useCase 用于加载、编译和使用着色器程序
- * @attention 构造时需要提供着色器文件路径，析构时应释放资源
+ * @功能描述 负责着色器的编译、链接和管理
+ * @设计目的 封装OpenGL着色器操作，提供简洁的接口
+ * @使用场景 用于加载、编译和使用着色器程序
+ * @关键实现 构造时需要提供着色器文件路径，析构时应释放资源
  */
 class Shader
 {

@@ -1,4 +1,3 @@
-﻿
 #pragma once
 #include <glm/glm.hpp>
 
@@ -6,10 +5,10 @@
  * @class Camera
  * @brief 相机类
  * @details 管理相机参数和视图矩阵
- * @coreResponsibility 负责相机的位置、目标和投影矩阵的计算
- * @designIntent 提供一个统一的相机管理接口，简化相机操作
- * @useCase 用于在3D场景中控制视角
- * @attention 可以通过Set方法调整相机参数
+ * @功能描述 负责相机的位置、目标和投影矩阵的计算
+ * @设计目的 提供一个统一的相机管理接口，简化相机操作
+ * @使用场景 用于在3D场景中控制视角
+ * @关键实现 可以通过Set方法调整相机参数
  */
 class Camera
 {

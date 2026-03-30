@@ -1,4 +1,4 @@
-﻿#include "Circle.h"
+#include "Circle.h"
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -13,7 +13,7 @@ Circle::Circle(const glm::vec2& position, const glm::vec4& color, float radius, 
     m_vertices.push_back(0.0f);
     m_vertices.push_back(0.0f);
     
-    float angleStep = 2.0f * M_PI / segments;
+    float angleStep = static_cast<float>(2.0f * M_PI / segments);
     for (int i = 0; i <= segments; i++)
     {
         float angle = i * angleStep;
@@ -74,7 +74,7 @@ void Circle::Draw()
     
     glBindVertexArray(m_vertexArrayObject);
     
-    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_indices.size()), GL_UNSIGNED_INT, nullptr);
     
     glBindVertexArray(0);
     m_shader->Unbind();

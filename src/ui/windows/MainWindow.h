@@ -10,6 +10,15 @@
 
 #include "../../core/scene/SceneManager.h"
 
+/**
+ * @class CMainWindow
+ * @brief 主窗口类
+ * @details 应用程序的主窗口，包含OpenGL渲染区域和UI控件
+ * @功能描述 管理窗口创建、OpenGL初始化、渲染和用户交互
+ * @设计目的 提供应用程序的主界面和用户交互功能
+ * @使用场景 作为应用程序的主窗口，处理用户输入和渲染
+ * @关键实现 包含OpenGL渲染区域、相机控制、渲染选项等UI控件
+ */
 class CMainWindow : public CFrameWnd
 {
 public:

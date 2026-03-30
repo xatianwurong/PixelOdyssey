@@ -1,4 +1,4 @@
-﻿#include "Square.h"
+#include "Square.h"
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -77,7 +77,7 @@ void Square::Draw()
     glBindVertexArray(m_vertexArrayObject);
     
     // 绘制
-    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_indices.size()), GL_UNSIGNED_INT, nullptr);
     
     // 解绑
     glBindVertexArray(0);

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Object.h"
 #include <glm/glm.hpp>
 #include <vector>
@@ -15,7 +15,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <corecrt_math_defines.h>
 
-
+/**
+ * @class Shape
+ * @brief 几何形状基类
+ * @details 所有几何形状的基类，为形状渲染提供通用属性和方法
+ * @功能描述 管理形状的位置、颜色、缩放和OpenGL初始化
+ * @设计目的 为所有几何形状提供统一接口，同时允许特定实现
+ * @使用场景 作为各种几何形状（如矩形、圆形、三角形等）的基类
+ * @关键实现 所有派生类必须实现Draw和InitOpenGL方法
+ */
 class Shape : public Object
 {
 public:
@@ -45,4 +53,3 @@ protected:
 
   void CreateVAO();
 };
-
