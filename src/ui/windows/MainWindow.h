@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <afxwin.h>
 #include <afxwinappex.h>
@@ -7,7 +7,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "../resources/Resource.h"
-
 #include "../../core/scene/SceneManager.h"
 
 /**

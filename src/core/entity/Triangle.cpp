@@ -1,4 +1,4 @@
-#include "Triangle.h"
+﻿#include "Triangle.h"
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 

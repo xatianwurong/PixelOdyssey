@@ -1,8 +1,17 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <map>
 
+/**
+ * @class CDataStorage
+ * @brief 数据存储类
+ * @details 管理应用程序的配置数据和状态信息
+ * @功能描述 存储和管理相机设置、渲染设置和应用程序状态
+ * @设计目的 提供一个集中的数据存储和管理接口
+ * @使用场景 用于在应用程序不同组件之间共享和持久化数据
+ * @关键实现 使用单例模式，提供配置文件的加载和保存功能
+ */
 class CDataStorage
 {
 public:

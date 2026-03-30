@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Shape.h"
 #include <vector>
 #include <memory>
