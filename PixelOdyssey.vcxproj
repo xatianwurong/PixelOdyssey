@@ -124,6 +124,11 @@
     <ClCompile Include="src\ui\windows\MainWindow.cpp" />
     <ClCompile Include="src\ui\utils\DataStorage.cpp" />
     <ClCompile Include="src\ui\utils\OpenGLLogger.cpp" />
+    <ClCompile Include="src\ui\panels\LayerPanel.cpp" />
+    <ClCompile Include="src\ui\panels\MenuBar.cpp" />
+    <ClCompile Include="src\ui\panels\PanelBase.cpp" />
+    <ClCompile Include="src\ui\panels\PropertyPanel.cpp" />
+    <ClCompile Include="src\ui\panels\Toolbar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\entity\Object.h" />
@@ -165,6 +170,33 @@
     <ClInclude Include="src\ui\windows\MainWindow.h" />
     <ClInclude Include="src\ui\utils\DataStorage.h" />
     <ClInclude Include="src\ui\utils\OpenGLLogger.h" />
+    <ClInclude Include="src\app\Application.h" />
+    <ClInclude Include="src\core\command\Command.h" />
+    <ClInclude Include="src\core\command\CommandStack.h" />
+    <ClInclude Include="src\core\command\CreateEntityCommand.h" />
+    <ClInclude Include="src\core\ecs\Component.h" />
+    <ClInclude Include="src\core\ecs\Entity.h" />
+    <ClInclude Include="src\core\ecs\World.h" />
+    <ClInclude Include="src\core\event\Event.h" />
+    <ClInclude Include="src\core\event\EventBus.h" />
+    <ClInclude Include="src\core\renderer\CameraController.h" />
+    <ClInclude Include="src\core\serialization\ISerializable.h" />
+    <ClInclude Include="src\core\utils\Grid.h" />
+    <ClInclude Include="src\core\utils\Raycast.h" />
+    <ClInclude Include="src\tools\Gizmo.h" />
+    <ClInclude Include="src\tools\MoveTool.h" />
+    <ClInclude Include="src\tools\PanTool.h" />
+    <ClInclude Include="src\tools\RotateTool.h" />
+    <ClInclude Include="src\tools\ScaleTool.h" />
+    <ClInclude Include="src\tools\SelectTool.h" />
+    <ClInclude Include="src\tools\Tool.h" />
+    <ClInclude Include="src\ui\UIManager.h" />
+    <ClInclude Include="src\ui\panels\LayerPanel.h" />
+    <ClInclude Include="src\ui\panels\MenuBar.h" />
+    <ClInclude Include="src\ui\panels\PanelBase.h" />
+    <ClInclude Include="src\ui\panels\PropertyPanel.h" />
+    <ClInclude Include="src\ui\panels\Toolbar.h" />
+    <ClInclude Include="src\ui\resources\Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\ui\resources\GLDrawApp.rc" />

@@ -1,4 +1,4 @@
-#include "PerformanceMonitor.h"
+﻿#include "PerformanceMonitor.h"
 #include <iostream>
 
 PerformanceMonitor& PerformanceMonitor::Instance()
