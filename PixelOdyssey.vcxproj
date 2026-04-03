@@ -44,13 +44,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)src;$(ProjectDir)Dependencies\GLEW\include;$(ProjectDir)Dependencies\glm-0.9.7.1;$(ProjectDir)Dependencies\stb;$(ProjectDir)src\ui\utils</IncludePath>
+    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)src;$(ProjectDir)Dependencies\GLEW\include;$(ProjectDir)Dependencies\glm-0.9.7.1;$(ProjectDir)Dependencies\stb;$(ProjectDir)src\ui\utils;$(ProjectDir)src\ui\acad</IncludePath>
     <LibraryPath>$(LibraryPath);$(ProjectDir)Dependencies\GLEW\lib\Release\x64</LibraryPath>
     <OutDir>$(ProjectDir)Bin\</OutDir>
     <IntDir>$(ProjectDir)Bin\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)src;$(ProjectDir)Dependencies\GLEW\include;$(ProjectDir)Dependencies\glm-0.9.7.1;$(ProjectDir)Dependencies\stb;$(ProjectDir)src\ui\utils</IncludePath>
+    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)src;$(ProjectDir)Dependencies\GLEW\include;$(ProjectDir)Dependencies\glm-0.9.7.1;$(ProjectDir)Dependencies\stb;$(ProjectDir)src\ui\utils;$(ProjectDir)src\ui\acad</IncludePath>
     <LibraryPath>$(LibraryPath);$(ProjectDir)Dependencies\GLEW\lib\Release\x64</LibraryPath>
     <OutDir>$(ProjectDir)Bin\</OutDir>
     <IntDir>$(ProjectDir)Bin\obj\</IntDir>
@@ -121,14 +121,16 @@
     <ClCompile Include="src\core\utils\Utility.cpp" />
     <ClCompile Include="src\core\utils\PerformanceMonitor.cpp" />
     <ClCompile Include="src\ui\GLDrawApp.cpp" />
-    <ClCompile Include="src\ui\windows\MainWindow.cpp" />
+    <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
+    <ClCompile Include="src\ui\acad\AcadUIElement.cpp" />
+    <ClCompile Include="src\ui\acad\AcadCommandLine.cpp" />
+    <ClCompile Include="src\ui\acad\AcadToolPalette.cpp" />
+    <ClCompile Include="src\ui\acad\AcadPropertyPanel.cpp" />
+    <ClCompile Include="src\ui\acad\AcadUIManager.cpp" />
+    <ClCompile Include="src\ui\acad\AcadMainWindow.cpp" />
+    <ClCompile Include="src\ui\acad\UIComponents.cpp" />
     <ClCompile Include="src\ui\utils\DataStorage.cpp" />
     <ClCompile Include="src\ui\utils\OpenGLLogger.cpp" />
-    <ClCompile Include="src\ui\panels\LayerPanel.cpp" />
-    <ClCompile Include="src\ui\panels\MenuBar.cpp" />
-    <ClCompile Include="src\ui\panels\PanelBase.cpp" />
-    <ClCompile Include="src\ui\panels\PropertyPanel.cpp" />
-    <ClCompile Include="src\ui\panels\Toolbar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\entity\Object.h" />
@@ -167,7 +169,13 @@
     <ClInclude Include="src\core\utils\Utility.h" />
     <ClInclude Include="src\core\utils\PerformanceMonitor.h" />
     <ClInclude Include="src\ui\GLDrawApp.h" />
-    <ClInclude Include="src\ui\windows\MainWindow.h" />
+    <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
+    <ClInclude Include="src\ui\acad\AcadUIElement.h" />
+    <ClInclude Include="src\ui\acad\AcadCommandLine.h" />
+    <ClInclude Include="src\ui\acad\AcadToolPalette.h" />
+    <ClInclude Include="src\ui\acad\AcadPropertyPanel.h" />
+    <ClInclude Include="src\ui\acad\AcadUIManager.h" />
+    <ClInclude Include="src\ui\acad\AcadMainWindow.h" />
     <ClInclude Include="src\ui\utils\DataStorage.h" />
     <ClInclude Include="src\ui\utils\OpenGLLogger.h" />
     <ClInclude Include="src\app\Application.h" />
@@ -190,12 +198,6 @@
     <ClInclude Include="src\tools\ScaleTool.h" />
     <ClInclude Include="src\tools\SelectTool.h" />
     <ClInclude Include="src\tools\Tool.h" />
-    <ClInclude Include="src\ui\UIManager.h" />
-    <ClInclude Include="src\ui\panels\LayerPanel.h" />
-    <ClInclude Include="src\ui\panels\MenuBar.h" />
-    <ClInclude Include="src\ui\panels\PanelBase.h" />
-    <ClInclude Include="src\ui\panels\PropertyPanel.h" />
-    <ClInclude Include="src\ui\panels\Toolbar.h" />
     <ClInclude Include="src\ui\resources\Resource.h" />
   </ItemGroup>
   <ItemGroup>
