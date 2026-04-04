@@ -1,9 +1,9 @@
 ﻿#pragma once
-
 #include <afxwin.h>
 #include <vector>
 #include <string>
 #include <algorithm>  // for max/min
+#include "../core/ColorScheme.h"
 
 /**
  * @brief UI 面板项基类
@@ -44,7 +44,7 @@ public:
 
   void Draw(CDC* pDC, const CRect& rect, bool bHover) override {
     pDC->SetBkMode(TRANSPARENT);
-    pDC->SetTextColor(RGB(240, 240, 240));  // 亮色文本 - 优化对比度
+    pDC->SetTextColor(ColorScheme::Instance().GetColor(ColorScheme::ColorRole::TextPrimary));
     pDC->DrawText(text, (LPRECT)&rect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   }
 
@@ -65,20 +65,22 @@ public:
   }
 
   void Draw(CDC* pDC, const CRect& rect, bool bHover) override {
+    auto& colors = ColorScheme::Instance();
+    
     if (bHover && enabled) {
-      CBrush brush(RGB(50, 50, 50));  // 优化悬停背景色
+      CBrush brush(colors.GetColor(ColorScheme::ColorRole::SurfaceHover));
       pDC->FillRect(&rect, &brush);
     }
 
     pDC->SetBkMode(TRANSPARENT);
 
-    // 属性名（灰色）- 优化对比度
-    pDC->SetTextColor(RGB(160, 160, 160));
+    // 属性名（次要文字）
+    pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextSecondary));
     CRect labelRect(rect.left + 5, rect.top, rect.left + rect.Width() / 2, rect.bottom);
     pDC->DrawText(name, (LPRECT)&labelRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-    // 属性值（白色）- 优化对比度
-    pDC->SetTextColor(RGB(240, 240, 240));
+    // 属性值（主要文字）
+    pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
     CRect valueRect(rect.left + rect.Width() / 2, rect.top, rect.right - 5, rect.bottom);
     pDC->DrawText(value, (LPRECT)&valueRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   }
@@ -105,12 +107,17 @@ public:
   }
 
   void Draw(CDC* pDC, const CRect& rect, bool bHover) override {
-    COLORREF bgColor = RGB(52, 73, 94);
+    auto& colors = ColorScheme::Instance();
+    
+    COLORREF bgColor;
     if (isPressed) {
-      bgColor = RGB(52, 152, 219);  // 蓝色
+      bgColor = colors.GetColor(ColorScheme::ColorRole::Primary);
     }
     else if (bHover && enabled) {
-      bgColor = RGB(60, 90, 120);   // 悬停
+      bgColor = colors.GetColor(ColorScheme::ColorRole::PrimaryHover);
+    }
+    else {
+      bgColor = colors.GetColor(ColorScheme::ColorRole::Surface);
     }
 
     // 背景
@@ -118,14 +125,16 @@ public:
     pDC->FillRect(&rect, &brush);
 
     // 边框
-    CPen pen(PS_SOLID, 1, RGB(74, 111, 165));
+    CPen pen(PS_SOLID, 1, bHover ? colors.GetColor(ColorScheme::ColorRole::Primary) 
+                                  : colors.GetColor(ColorScheme::ColorRole::Border));
     pDC->SelectObject(&pen);
     pDC->SelectStockObject(NULL_BRUSH);
     pDC->Rectangle(&rect);
 
     // 文本
     pDC->SetBkMode(TRANSPARENT);
-    pDC->SetTextColor(enabled ? RGB(255, 255, 255) : RGB(150, 150, 150));
+    pDC->SetTextColor(enabled ? colors.GetColor(ColorScheme::ColorRole::TextPrimary) 
+                               : colors.GetColor(ColorScheme::ColorRole::TextDisabled));
   }
 
   int GetHeight() const override { return 35; }
