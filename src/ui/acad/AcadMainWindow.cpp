@@ -2,7 +2,6 @@
 #include <GL/glew.h>
 #include <afxdialogex.h>
 #include <time.h>
-#include "../utils/OpenGLLogger.h"
 #include "../../core/scene/SceneManager.h"
 #include "../../core/entity/Circle.h"
 #include "../../core/entity/Rectangle.h"
@@ -56,12 +55,12 @@ int CAcadMainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct)
   if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
     return -1;
 
-  LOG(_T("[AcadMainWindow] OnCreate called"));
+  //LOG(_T("[AcadMainWindow] OnCreate called"));
 
   // 创建 UI 管理器
   m_pUIManager = &CAcadUIManager::Instance();
   if (!m_pUIManager->Initialize(this)) {
-    LOG(_T("[AcadMainWindow] Failed to initialize UI Manager"));
+    //LOG(_T("[AcadMainWindow] Failed to initialize UI Manager"));
     return -1;
   }
 
@@ -74,7 +73,7 @@ int CAcadMainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct)
   if (!m_renderView.Create(_T(""), dwStyle,
     openGLRect,
     this, 1001)) {
-    LOG(_T("[AcadMainWindow] Failed to create OpenGL view"));
+    //LOG(_T("[AcadMainWindow] Failed to create OpenGL view"));
     return -1;
   }
 
@@ -82,7 +81,7 @@ int CAcadMainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct)
   //LOG(_T("[AcadMainWindow] OpenGL view created at %dx%d"), openGLRect.Width(), openGLRect.Height());
 
   if (!InitOpenGL()) {
-    LOG(_T("[AcadMainWindow] Failed to initialize OpenGL"));
+    //LOG(_T("[AcadMainWindow] Failed to initialize OpenGL"));
     return -1;
   }
 

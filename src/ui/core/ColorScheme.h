@@ -81,17 +81,19 @@ public:
   void ApplyTheme(Theme theme);
 
   /**
-   * @brief 创建画刷
+   * @brief 创建画刷（通过指针避免拷贝问题）
+   * @return CBrush* 新创建的画刷指针，调用者负责删除
    */
-  CBrush CreateBrush(ColorRole role) const {
-    return CBrush(GetColor(role));
+  CBrush* CreateBrush(ColorRole role) const {
+    return new CBrush(GetColor(role));
   }
 
   /**
-   * @brief 创建画笔
+   * @brief 创建画笔（通过指针避免拷贝问题）
+   * @return CPen* 新创建的画笔指针，调用者负责删除
    */
-  CPen CreatePen(ColorRole role, int width = 1) const {
-    return CPen(PS_SOLID, width, GetColor(role));
+  CPen* CreatePen(ColorRole role, int width = 1) const {
+    return new CPen(PS_SOLID, width, GetColor(role));
   }
 
 private:

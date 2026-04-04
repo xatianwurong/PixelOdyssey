@@ -35,7 +35,7 @@ void ColorScheme::SetupDarkTheme() {
   m_colors[ColorRole::Success] = RGB(0, 200, 83);          // #00C853
   m_colors[ColorRole::Warning] = RGB(255, 179, 0);         // #FFB300
   m_colors[ColorRole::Error] = RGB(244, 67, 54);           // #F44336
-  m_colors[ColorRole::Selection] = RGB(0, 120, 212, 60);   // 半透明蓝色
+  m_colors[ColorRole::Selection] = RGB(0, 120, 212);   // 半透明蓝色
   m_colors[ColorRole::Highlight] = RGB(255, 165, 0);       // #FFA500
 }
 
@@ -55,7 +55,7 @@ void ColorScheme::SetupLightTheme() {
   m_colors[ColorRole::Success] = RGB(0, 150, 60);          // #00963C
   m_colors[ColorRole::Warning] = RGB(200, 140, 0);         // #C88C00
   m_colors[ColorRole::Error] = RGB(200, 50, 50);           // #C83232
-  m_colors[ColorRole::Selection] = RGB(0, 120, 212, 40);   // 半透明蓝色
+  m_colors[ColorRole::Selection] = RGB(0, 120, 212);   // 半透明蓝色
   m_colors[ColorRole::Highlight] = RGB(255, 140, 0);       // #FF8C00
 }
 
@@ -75,6 +75,6 @@ void ColorScheme::SetupHighContrastTheme() {
   m_colors[ColorRole::Success] = RGB(0, 255, 0);           // #00FF00
   m_colors[ColorRole::Warning] = RGB(255, 255, 0);         // #FFFF00
   m_colors[ColorRole::Error] = RGB(255, 0, 0);             // #FF0000
-  m_colors[ColorRole::Selection] = RGB(0, 255, 255, 80);   // 半透明青色
+  m_colors[ColorRole::Selection] = RGB(0, 255, 255);   // 半透明青色
   m_colors[ColorRole::Highlight] = RGB(255, 0, 255);       // #FF00FF
 }
