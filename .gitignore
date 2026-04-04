@@ -1,2 +1,29 @@
-/Bin/*
-/.vs/*
+# Visual Studio
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build Results
+[Dd]ebug/**
+[Rr]elease/**
+[Aa][rR][tT][iI][fF][aA][cC][tT][sS]/**
+[Bb]in/**
+[Oo]bj/**
+*.exe
+*.dll
+*.pdb
+*.idb
+*.ilk
+*.log
+*.cache
+
+# Windows System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE specific files
+.idea/
+*.sublime-*
