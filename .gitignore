@@ -1,45 +1,41 @@
-# Compiled and build artifacts
-*.pyc
-__pycache__/
-*.o
-*.obj
-*.class
-*.exe
-*.dll
-*.so
-*.a
-*.out
+```
+# Build artifacts
+*.vcxproj.user
+*.vcxproj.filters
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sdf
+*.opensdf
+*.opendb
+*.ncb
+*.log
+*.vcxproj.FileListAbsolute.txt
+
+# Output directories
+Debug/
+Release/
+x64/
+bin/
+obj/
 
 # Dependencies
 node_modules/
-venv/
-.venv/
+vendor/
+
+# Environment
 .env
 .env.local
 .env.*
 
-# Build directories
-dist/
-build/
-target/
-
-# Python specific
-*.pyc
-__pycache__/
-.mypy_cache/
-.pytest_cache/
-.coverage
-coverage/
-htmlcov/
-
-# Editors and IDEs
+# Editors
 .vscode/
 .idea/
 *.swp
 *.swo
-*.tmp
 
-# System files
+# OS
 .DS_Store
 Thumbs.db
 
@@ -87,3 +83,4 @@ Dependencies/*
 Bin/*
 src/ui/UI_OPTIMIZATION_SUMMARY.md
 src/ui/UI_OPTIMIZATION_SUMMARY.md
+```

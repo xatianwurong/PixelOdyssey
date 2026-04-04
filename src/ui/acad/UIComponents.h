@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <functional>
 #include "../core/ColorScheme.h"
 
 /**
@@ -70,8 +71,9 @@ public:
     auto& colors = ColorScheme::Instance();
     
     if (bHover && enabled) {
-      CBrush brush(colors.GetColor(ColorScheme::ColorRole::SurfaceHover));
-      pDC->FillRect(&rect, &brush);
+      CBrush* brush = colors.CreateBrush(ColorScheme::ColorRole::SurfaceHover);
+      pDC->FillRect(&rect, brush);
+      delete brush;
     }
 
     pDC->SetBkMode(TRANSPARENT);
@@ -152,15 +154,16 @@ public:
     }
 
     // 圆角矩形背景
-    CBrush brush(bgColor);
-    pDC->FillRect(&rect, &brush);
+    CBrush* brush = new CBrush(bgColor);
+    pDC->FillRect(&rect, brush);
+    delete brush;
 
     // 边框
     COLORREF borderColor = !enabled ? colors.GetColor(ColorScheme::ColorRole::Border) :
                            bHover ? colors.GetColor(ColorScheme::ColorRole::Primary) :
                                     colors.GetColor(ColorScheme::ColorRole::Border);
-    CPen pen(PS_SOLID, 1, borderColor);
-    CPen* pOldPen = pDC->SelectObject(&pen);
+    CPen* pen = new CPen(PS_SOLID, 1, borderColor);
+    CPen* pOldPen = pDC->SelectObject(pen);
     pDC->SelectStockObject(NULL_BRUSH);
     
     // 绘制圆角矩形
@@ -169,6 +172,7 @@ public:
     pDC->RoundRect(&btnRect, CPoint(6, 6));
 
     pDC->SelectObject(pOldPen);
+    delete pen;
 
     // 文本
     pDC->SetBkMode(TRANSPARENT);

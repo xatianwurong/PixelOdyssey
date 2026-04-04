@@ -193,15 +193,15 @@ void CAcadCommandLine::DrawInputBox(CDC* pDC, const CRect& rect)
   
   // 背景
   COLORREF bgColor = m_bHasFocus ? colors.GetColor(ColorScheme::ColorRole::Primary) : colors.GetColor(ColorScheme::ColorRole::Surface);
-  CBrush brush(bgColor);
-  pDC->FillRect(&rect, &brush);
+  CBrush* brush = new CBrush(bgColor);
+  pDC->FillRect(&rect, brush); delete brush;
 
   // 边框
-  CPen pen(PS_SOLID, m_bHasFocus ? 2 : 1, m_bHasFocus ? colors.GetColor(ColorScheme::ColorRole::Primary) : colors.GetColor(ColorScheme::ColorRole::Border));
-  CPen* pOldPen = pDC->SelectObject(&pen);
+  CPen* pen = new CPen(PS_SOLID, m_bHasFocus ? 2 : 1, m_bHasFocus ? colors.GetColor(ColorScheme::ColorRole::Primary) : colors.GetColor(ColorScheme::ColorRole::Border));
+  CPen* pOldPen = pDC->SelectObject(pen);
   pDC->SelectStockObject(NULL_BRUSH);
   pDC->Rectangle(&rect);
-  pDC->SelectObject(pOldPen);
+  pDC->SelectObject(pOldPen); delete pen;
 
   // 提示符
   pDC->SetBkMode(TRANSPARENT);
@@ -223,8 +223,8 @@ void CAcadCommandLine::DrawHistory(CDC* pDC, const CRect& rect)
   auto& colors = ColorScheme::Instance();
   
   // 背景
-  CBrush brush(colors.GetColor(ColorScheme::ColorRole::Background));
-  pDC->FillRect(&rect, &brush);
+  CBrush* brush = new CBrush(colors.GetColor(ColorScheme::ColorRole::Background));
+  pDC->FillRect(&rect, brush); delete brush;
 
   pDC->SetBkMode(TRANSPARENT);
   pDC->SelectObject(&m_fontSmall);
