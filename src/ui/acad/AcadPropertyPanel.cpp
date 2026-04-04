@@ -1,4 +1,5 @@
 ﻿#include "AcadPropertyPanel.h"
+#include "../core/ColorScheme.h"
 
 IMPLEMENT_DYNAMIC(CAcadPropertyPanel, CUnifiedPanel)
 
@@ -84,29 +85,27 @@ void CAcadPropertyPanel::OnDraw(CDC* pDC)
 {
   CRect rect;
   GetClientRect(&rect);
+  auto& colors = ColorScheme::Instance();
 
-  // 绘制标题背景 - 优化视觉效果
+  // 绘制标题背景
   CRect titleRect(0, 0, rect.Width(), 35);
-  CBrush titleBrush(RGB(37, 37, 37));  // 与面板背景一致
+  CBrush titleBrush(colors.GetColor(ColorScheme::ColorRole::Surface));
   pDC->FillRect(&titleRect, &titleBrush);
 
-  // 绘制标题 - 优化字体和颜色
+  // 绘制标题
   pDC->SetBkMode(TRANSPARENT);
-  pDC->SetTextColor(RGB(240, 240, 240));  // 优化对比度
+  pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
   CFont fontTitle;
-  fontTitle.CreateFont(16, 0, 0, 0, FW_BOLD, FALSE, FALSE, 0,
+  fontTitle.CreateFont(-UIFonts::HEADING_SIZE, 0, 0, 0, UIFonts::HEADING_WEIGHT, FALSE, FALSE, 0,
     ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-    DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _T("Microsoft YaHei UI"));  // 使用微软雅黑
+    DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, UIFonts::FONT_FAMILY);
   pDC->SelectObject(&fontTitle);
   pDC->DrawText(m_title, &titleRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   titleRect.left += 10;
 
-  // 分隔线 - 优化颜色
-  CPen borderPen(PS_SOLID, 1, RGB(62, 62, 66));  // 与边框颜色一致
+  // 分隔线
+  CPen borderPen(PS_SOLID, 1, colors.GetColor(ColorScheme::ColorRole::Border));
   pDC->SelectObject(&borderPen);
   pDC->MoveTo(0, 35);
   pDC->LineTo(rect.Width(), 35);
-
-  // 调用基类绘制内容
-  // CUnifiedPanel::OnDraw(pDC);  // 如果需要自定义绘制内容区域
 }

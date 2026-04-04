@@ -1,4 +1,5 @@
 ﻿#include "AcadToolPalette.h"
+#include "../core/ColorScheme.h"
 
 IMPLEMENT_DYNAMIC(CAcadToolPalette, CWnd)
 
@@ -131,22 +132,23 @@ void CAcadToolPalette::DrawToolButton(CDC* pDC, int index, const CRect& rect)
   if (index < 0 || index >= (int)m_buttons.size()) return;
 
   const ToolButton& btn = m_buttons[index];
+  auto& colors = ColorScheme::Instance();
 
   // 背景色
   COLORREF bgColor;
   if (btn.isActive) {
-    bgColor = ms_colorAccent;  // 激活蓝色
+    bgColor = colors.GetColor(ColorScheme::ColorRole::Primary);  // 激活蓝色
   }
   else if (btn.isHover) {
-    bgColor = ms_colorAccentHover;  // 悬停深蓝色
+    bgColor = colors.GetColor(ColorScheme::ColorRole::PrimaryHover);  // 悬停深蓝色
   }
   else {
-    bgColor = RGB(50, 50, 50);  // 优化默认深色
+    bgColor = colors.GetColor(ColorScheme::ColorRole::Surface);  // 默认表面色
   }
 
   // 圆角矩形背景 - 优化边框
   CBrush brush(bgColor);
-  CPen pen(PS_SOLID, 1, btn.isHover ? RGB(240, 240, 240) : ms_colorBorder);  // 优化边框颜色
+  CPen pen(PS_SOLID, 1, btn.isHover ? colors.GetColor(ColorScheme::ColorRole::TextPrimary) : colors.GetColor(ColorScheme::ColorRole::Border));
   CBrush* pOldBrush = pDC->SelectObject(&brush);
   CPen* pOldPen = pDC->SelectObject(&pen);
 
@@ -158,7 +160,7 @@ void CAcadToolPalette::DrawToolButton(CDC* pDC, int index, const CRect& rect)
 
   // 图标 - 优化字体和颜色
   pDC->SetBkMode(TRANSPARENT);
-  pDC->SetTextColor(btn.isActive ? RGB(255, 255, 255) : RGB(240, 240, 240));  // 优化文本颜色
+  pDC->SetTextColor(btn.isActive ? colors.GetColor(ColorScheme::ColorRole::TextPrimary) : colors.GetColor(ColorScheme::ColorRole::TextSecondary));
   pDC->SelectObject(&m_fontNormal);
 
   CString iconText;
@@ -170,7 +172,7 @@ void CAcadToolPalette::DrawToolButton(CDC* pDC, int index, const CRect& rect)
 
   // 边框高亮
   if (btn.isActive) {
-    CPen highlightPen(PS_SOLID, 2, ms_colorHighlight);
+    CPen highlightPen(PS_SOLID, 2, colors.GetColor(ColorScheme::ColorRole::Highlight));
     pDC->SelectObject(&highlightPen);
     pDC->SelectStockObject(NULL_BRUSH);
     pDC->Rectangle(&rect);

@@ -1,4 +1,5 @@
 ﻿#include "AcadCommandLine.h"
+#include "../core/ColorScheme.h"
 #include "winUser.h"
 
 
@@ -188,28 +189,30 @@ void CAcadCommandLine::OnKillFocus()
 
 void CAcadCommandLine::DrawInputBox(CDC* pDC, const CRect& rect)
 {
+  auto& colors = ColorScheme::Instance();
+  
   // 背景
-  COLORREF bgColor = m_bHasFocus ? ms_colorAccent : ms_colorPanelBg;
+  COLORREF bgColor = m_bHasFocus ? colors.GetColor(ColorScheme::ColorRole::Primary) : colors.GetColor(ColorScheme::ColorRole::Surface);
   CBrush brush(bgColor);
   pDC->FillRect(&rect, &brush);
 
   // 边框
-  CPen pen(PS_SOLID, m_bHasFocus ? 2 : 1, m_bHasFocus ? ms_colorAccent : ms_colorBorder);
+  CPen pen(PS_SOLID, m_bHasFocus ? 2 : 1, m_bHasFocus ? colors.GetColor(ColorScheme::ColorRole::Primary) : colors.GetColor(ColorScheme::ColorRole::Border));
   CPen* pOldPen = pDC->SelectObject(&pen);
   pDC->SelectStockObject(NULL_BRUSH);
   pDC->Rectangle(&rect);
   pDC->SelectObject(pOldPen);
 
-  // 提示符 - 优化颜色
+  // 提示符
   pDC->SetBkMode(TRANSPARENT);
-  pDC->SetTextColor(ms_colorAccent);
+  pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::Primary));
   pDC->SelectObject(&m_fontNormal);
   pDC->DrawText(_T("Command:"), CRect(rect.left + 5, rect.top, rect.left + 80, rect.bottom),
     DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-  // 输入文本 - 优化对比度
+  // 输入文本
   if (!m_bHasFocus) {
-    pDC->SetTextColor(RGB(240, 240, 240));  // 更亮的颜色
+    pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
     pDC->DrawText(m_strCommand, CRect(rect.left + 85, rect.top, rect.right - 5, rect.bottom),
       DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   }
@@ -217,8 +220,10 @@ void CAcadCommandLine::DrawInputBox(CDC* pDC, const CRect& rect)
 
 void CAcadCommandLine::DrawHistory(CDC* pDC, const CRect& rect)
 {
-  // 背景 - 优化为深色主题
-  CBrush brush(RGB(30, 30, 30));  // 与背景色一致
+  auto& colors = ColorScheme::Instance();
+  
+  // 背景
+  CBrush brush(colors.GetColor(ColorScheme::ColorRole::Background));
   pDC->FillRect(&rect, &brush);
 
   pDC->SetBkMode(TRANSPARENT);
@@ -234,7 +239,7 @@ void CAcadCommandLine::DrawHistory(CDC* pDC, const CRect& rect)
   for (int i = startIdx; i < endIdx; i++) {
     const HistoryLine& line = m_history[i];
 
-    COLORREF textColor = line.isImportant ? ms_colorHighlight : RGB(240, 240, 240);  // 优化文本颜色
+    COLORREF textColor = line.isImportant ? colors.GetColor(ColorScheme::ColorRole::Highlight) : colors.GetColor(ColorScheme::ColorRole::TextPrimary);
 
     pDC->SetTextColor(textColor);
 
