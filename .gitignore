@@ -78,3 +78,12 @@ julia-*/
 
 # Zig
 zig*/
+
+
+
+
+.vs/*
+Dependencies/*
+Bin/*
+src/ui/UI_OPTIMIZATION_SUMMARY.md
+src/ui/UI_OPTIMIZATION_SUMMARY.md
