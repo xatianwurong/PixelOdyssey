@@ -1,8 +1,9 @@
 ﻿#pragma once
+
 #include <afxwin.h>
 #include <vector>
 #include <string>
-#include <algorithm>  // for max/min
+#include <algorithm>
 #include "../core/ColorScheme.h"
 
 /**
@@ -28,8 +29,8 @@ public:
    */
   virtual bool OnClick(const CPoint& point) { return false; }
 
-  CString name;      // 名称
-  bool enabled;      // 是否启用
+  CString name;
+  bool enabled;
 };
 
 /**
@@ -43,12 +44,13 @@ public:
   }
 
   void Draw(CDC* pDC, const CRect& rect, bool bHover) override {
+    auto& colors = ColorScheme::Instance();
     pDC->SetBkMode(TRANSPARENT);
-    pDC->SetTextColor(ColorScheme::Instance().GetColor(ColorScheme::ColorRole::TextPrimary));
+    pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
     pDC->DrawText(text, (LPRECT)&rect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   }
 
-  int GetHeight() const override { return 25; }
+  int GetHeight() const override { return 28; }
 
 private:
   CString text;
@@ -74,18 +76,18 @@ public:
 
     pDC->SetBkMode(TRANSPARENT);
 
-    // 属性名（次要文字）
+    // 属性名（次要文字）- 使用更清晰的布局
     pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextSecondary));
-    CRect labelRect(rect.left + 5, rect.top, rect.left + rect.Width() / 2, rect.bottom);
+    CRect labelRect(rect.left + 8, rect.top, rect.left + rect.Width() / 2 - 4, rect.bottom);
     pDC->DrawText(name, (LPRECT)&labelRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-    // 属性值（主要文字）
+    // 属性值（主要文字）- 右对齐显示
     pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
-    CRect valueRect(rect.left + rect.Width() / 2, rect.top, rect.right - 5, rect.bottom);
+    CRect valueRect(rect.left + rect.Width() / 2 + 4, rect.top, rect.right - 8, rect.bottom);
     pDC->DrawText(value, (LPRECT)&valueRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   }
 
-  int GetHeight() const override { return 28; }
+  int GetHeight() const override { return 32; }
 
   void SetValue(const CString& newValue) {
     value = newValue;
@@ -96,52 +98,93 @@ private:
 };
 
 /**
+ * @brief 分隔线项
+ */
+class CUISeparator : public CUIPanelItem {
+public:
+  CUISeparator() {
+    name = _T("");
+  }
+
+  void Draw(CDC* pDC, const CRect& rect, bool bHover) override {
+    auto& colors = ColorScheme::Instance();
+    CPen pen(PS_SOLID, 1, colors.GetColor(ColorScheme::ColorRole::Border));
+    CPen* pOldPen = pDC->SelectObject(&pen);
+    int midY = rect.top + rect.Height() / 2;
+    pDC->MoveTo(rect.left + 8, midY);
+    pDC->LineTo(rect.right - 8, midY);
+    pDC->SelectObject(pOldPen);
+  }
+
+  int GetHeight() const override { return 16; }
+};
+
+/**
  * @brief 按钮项 - 可点击的按钮
  */
 class CUIButton : public CUIPanelItem {
 public:
+  using ClickCallback = std::function<void()>;
+
   CUIButton(const CString& btnName, const CString& btnLabel) {
     name = btnName;
     label = btnLabel;
     isPressed = false;
+    enabled = true;
+  }
+
+  void SetOnClick(ClickCallback callback) {
+    onClick = callback;
   }
 
   void Draw(CDC* pDC, const CRect& rect, bool bHover) override {
     auto& colors = ColorScheme::Instance();
     
     COLORREF bgColor;
-    if (isPressed) {
+    if (!enabled) {
+      bgColor = colors.GetColor(ColorScheme::ColorRole::Surface);
+    } else if (isPressed) {
       bgColor = colors.GetColor(ColorScheme::ColorRole::Primary);
-    }
-    else if (bHover && enabled) {
+    } else if (bHover) {
       bgColor = colors.GetColor(ColorScheme::ColorRole::PrimaryHover);
-    }
-    else {
+    } else {
       bgColor = colors.GetColor(ColorScheme::ColorRole::Surface);
     }
 
-    // 背景
+    // 圆角矩形背景
     CBrush brush(bgColor);
     pDC->FillRect(&rect, &brush);
 
     // 边框
-    CPen pen(PS_SOLID, 1, bHover ? colors.GetColor(ColorScheme::ColorRole::Primary) 
-                                  : colors.GetColor(ColorScheme::ColorRole::Border));
-    pDC->SelectObject(&pen);
+    COLORREF borderColor = !enabled ? colors.GetColor(ColorScheme::ColorRole::Border) :
+                           bHover ? colors.GetColor(ColorScheme::ColorRole::Primary) :
+                                    colors.GetColor(ColorScheme::ColorRole::Border);
+    CPen pen(PS_SOLID, 1, borderColor);
+    CPen* pOldPen = pDC->SelectObject(&pen);
     pDC->SelectStockObject(NULL_BRUSH);
-    pDC->Rectangle(&rect);
+    
+    // 绘制圆角矩形
+    CRect btnRect = rect;
+    btnRect.DeflateRect(4, 2);
+    pDC->RoundRect(&btnRect, CPoint(6, 6));
+
+    pDC->SelectObject(pOldPen);
 
     // 文本
     pDC->SetBkMode(TRANSPARENT);
-    pDC->SetTextColor(enabled ? colors.GetColor(ColorScheme::ColorRole::TextPrimary) 
-                               : colors.GetColor(ColorScheme::ColorRole::TextDisabled));
+    COLORREF textColor = !enabled ? colors.GetColor(ColorScheme::ColorRole::TextDisabled) :
+                         isPressed || bHover ? RGB(255, 255, 255) :
+                                               colors.GetColor(ColorScheme::ColorRole::TextPrimary);
+    pDC->SetTextColor(textColor);
+    pDC->DrawText(label, (LPRECT)&rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
   }
 
-  int GetHeight() const override { return 35; }
+  int GetHeight() const override { return 38; }
 
   bool OnClick(const CPoint& point) override {
-    if (enabled) {
+    if (enabled && onClick) {
       isPressed = !isPressed;
+      onClick();
       return true;
     }
     return false;
@@ -150,6 +193,7 @@ public:
 private:
   CString label;
   bool isPressed;
+  ClickCallback onClick;
 };
 
 /**
@@ -170,11 +214,11 @@ protected:
 
 public:
   CUnifiedPanel()
-    : itemSpacing(5)
-    , paddingLeft(10)
-    , paddingRight(10)
-    , paddingTop(35)  // 标题空间
-    , paddingBottom(10)
+    : itemSpacing(4)
+    , paddingLeft(12)
+    , paddingRight(12)
+    , paddingTop(48)
+    , paddingBottom(12)
     , scrollOffset(0)
     , totalHeight(0)
     , hoverIndex(-1)
