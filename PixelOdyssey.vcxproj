@@ -129,8 +129,6 @@
     <ClCompile Include="src\ui\acad\AcadUIManager.cpp" />
     <ClCompile Include="src\ui\acad\AcadMainWindow.cpp" />
     <ClCompile Include="src\ui\acad\UIComponents.cpp" />
-    <ClCompile Include="src\ui\utils\DataStorage.cpp" />
-    <ClCompile Include="src\ui\utils\OpenGLLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\entity\Object.h" />
@@ -176,8 +174,6 @@
     <ClInclude Include="src\ui\acad\AcadPropertyPanel.h" />
     <ClInclude Include="src\ui\acad\AcadUIManager.h" />
     <ClInclude Include="src\ui\acad\AcadMainWindow.h" />
-    <ClInclude Include="src\ui\utils\DataStorage.h" />
-    <ClInclude Include="src\ui\utils\OpenGLLogger.h" />
     <ClInclude Include="src\app\Application.h" />
     <ClInclude Include="src\core\command\Command.h" />
     <ClInclude Include="src\core\command\CommandStack.h" />
