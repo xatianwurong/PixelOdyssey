@@ -14,7 +14,7 @@ namespace UILayout {
   constexpr int TOOL_WIDTH = 60;           // 左侧工具栏宽度 (增加以容纳更大图标)
   constexpr int PANEL_WIDTH = 320;         // 右侧面板宽度 (增加以显示更多内容)
   constexpr int COMMAND_HEIGHT = 180;      // 底部命令行高度 (增加以显示更多历史)
-  
+
   // =========================================================================
   // 间距常量 - 基于 8px 基准网格系统
   // =========================================================================
@@ -23,7 +23,7 @@ namespace UILayout {
   constexpr int MARGIN_RIGHT = 0;
   constexpr int MARGIN_BOTTOM = 0;
   constexpr int GAP = 8;                   // 组件间距
-  
+
   // =========================================================================
   // OpenGL 渲染区域自动计算
   // =========================================================================
@@ -43,10 +43,10 @@ namespace UILayout {
   // 属性面板区域 - 占满右侧
   // =========================================================================
   inline CRect GetPropertyPanelRect(int clientWidth, int clientHeight) {
-    return CRect(clientWidth - PANEL_WIDTH, 0, 
+    return CRect(clientWidth - PANEL_WIDTH, 0,
       clientWidth, clientHeight - COMMAND_HEIGHT);
   }
-  
+
   // =========================================================================
   // 命令行区域 - 占满底部
   // =========================================================================
@@ -54,16 +54,16 @@ namespace UILayout {
     return CRect(TOOL_WIDTH, clientHeight - COMMAND_HEIGHT,
       clientWidth, clientHeight);
   }
-  
+
   // =========================================================================
   // OpenGL 渲染区域 - 最大化利用
   // =========================================================================
   inline CRect GetOpenGLRect(int clientWidth, int clientHeight) {
-    return CRect(TOOL_WIDTH, 0, 
-      clientWidth - PANEL_WIDTH, 
+    return CRect(TOOL_WIDTH, 0,
+      clientWidth - PANEL_WIDTH,
       clientHeight - COMMAND_HEIGHT);
   }
-  
+
   // =========================================================================
   // 最小窗口尺寸限制
   // =========================================================================
@@ -84,21 +84,23 @@ namespace UILayout {
 
     static LayoutMetrics Calculate(int clientWidth, int clientHeight) {
       LayoutMetrics metrics;
-      
+
       // 小屏幕适配 (< 1200x800)
       bool isSmallScreen = clientWidth < 1400 || clientHeight < 900;
       // 超小屏幕适配 (< 1000x700)
       bool isExtraSmall = clientWidth < 1200 || clientHeight < 800;
-      
+
       if (isExtraSmall) {
         metrics.toolWidth = 52;
         metrics.panelWidth = 260;
         metrics.commandHeight = 140;
-      } else if (isSmallScreen) {
+      }
+      else if (isSmallScreen) {
         metrics.toolWidth = 56;
         metrics.panelWidth = 290;
         metrics.commandHeight = 160;
-      } else {
+      }
+      else {
         metrics.toolWidth = TOOL_WIDTH;
         metrics.panelWidth = PANEL_WIDTH;
         metrics.commandHeight = COMMAND_HEIGHT;
@@ -120,7 +122,7 @@ namespace UILayout {
   // =========================================================================
   // 字体大小配置 - 根据 DPI 缩放
   // =========================================================================
-  namespace Fonts {
+  namespace UIFonts {
     constexpr int TITLE_SIZE = 18;         // 标题字体
     constexpr int HEADING_SIZE = 15;       // 副标题
     constexpr int BODY_SIZE = 13;          // 正文字体
@@ -132,8 +134,8 @@ namespace UILayout {
     constexpr int HEADING_WEIGHT = FW_MEDIUM;
     constexpr int BODY_WEIGHT = FW_NORMAL;
 
-    const TCHAR* FONT_FAMILY = _T("Microsoft YaHei UI");
-    const TCHAR* MONOSPACE_FONT = _T("Consolas");
+    inline constexpr const TCHAR* FONT_FAMILY = _T("Microsoft YaHei UI");
+    inline constexpr const TCHAR* MONOSPACE_FONT = _T("Consolas");
   }
 
   // =========================================================================

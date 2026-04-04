@@ -1,5 +1,6 @@
 ﻿#include "AcadPropertyPanel.h"
-#include "../core/ColorScheme.h"
+
+#include "UILayout.h"
 
 IMPLEMENT_DYNAMIC(CAcadPropertyPanel, CUnifiedPanel)
 
@@ -96,9 +97,9 @@ void CAcadPropertyPanel::OnDraw(CDC* pDC)
   pDC->SetBkMode(TRANSPARENT);
   pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
   CFont fontTitle;
-  fontTitle.CreateFont(-UIFonts::HEADING_SIZE, 0, 0, 0, UIFonts::HEADING_WEIGHT, FALSE, FALSE, 0,
+  fontTitle.CreateFont(-UILayout::UIFonts::HEADING_SIZE, 0, 0, 0, UILayout::UIFonts::HEADING_WEIGHT, FALSE, FALSE, 0,
     ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-    DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, UIFonts::FONT_FAMILY);
+    DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, UILayout::UIFonts::FONT_FAMILY);
   pDC->SelectObject(&fontTitle);
   pDC->DrawText(m_title, &titleRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   titleRect.left += 10;

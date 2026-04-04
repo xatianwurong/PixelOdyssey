@@ -3,7 +3,7 @@
 #include "winUser.h"
 
 
-IMPLEMENT_DYNAMIC(CAcadCommandLine, CWnd)
+IMPLEMENT_DYNAMIC(CAcadCommandLine, CAcadUIElement)
 
 CAcadCommandLine::CAcadCommandLine()
   : m_nScrollPos(0)

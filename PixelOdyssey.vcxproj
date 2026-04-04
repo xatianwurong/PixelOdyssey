@@ -61,6 +61,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,6 +121,7 @@
     <ClCompile Include="src\core\scene\SceneManager.cpp" />
     <ClCompile Include="src\core\utils\Utility.cpp" />
     <ClCompile Include="src\core\utils\PerformanceMonitor.cpp" />
+    <ClCompile Include="src\ui\core\ColorScheme.cpp" />
     <ClCompile Include="src\ui\GLDrawApp.cpp" />
     <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
     <ClCompile Include="src\ui\acad\AcadUIElement.cpp" />
@@ -166,6 +168,9 @@
     <ClInclude Include="src\core\scene\SceneManager.h" />
     <ClInclude Include="src\core\utils\Utility.h" />
     <ClInclude Include="src\core\utils\PerformanceMonitor.h" />
+    <ClInclude Include="src\ui\acad\UIComponents.h" />
+    <ClInclude Include="src\ui\acad\UILayout.h" />
+    <ClInclude Include="src\ui\core\ColorScheme.h" />
     <ClInclude Include="src\ui\GLDrawApp.h" />
     <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
     <ClInclude Include="src\ui\acad\AcadUIElement.h" />
@@ -195,6 +200,7 @@
     <ClInclude Include="src\tools\SelectTool.h" />
     <ClInclude Include="src\tools\Tool.h" />
     <ClInclude Include="src\ui\resources\Resource.h" />
+    <ClInclude Include="src\ui\utils\OpenGLLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\ui\resources\GLDrawApp.rc" />

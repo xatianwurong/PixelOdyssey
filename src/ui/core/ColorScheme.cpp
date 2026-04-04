@@ -1,21 +1,22 @@
+﻿
 #include "ColorScheme.h"
 
 void ColorScheme::ApplyTheme(Theme theme) {
   m_currentTheme = theme;
-  
+
   switch (theme) {
-    case Theme::Dark:
-      SetupDarkTheme();
-      break;
-    case Theme::Light:
-      SetupLightTheme();
-      break;
-    case Theme::HighContrast:
-      SetupHighContrastTheme();
-      break;
-    case Theme::Custom:
-      // 自定义主题，不设置默认值
-      break;
+  case Theme::Dark:
+    SetupDarkTheme();
+    break;
+  case Theme::Light:
+    SetupLightTheme();
+    break;
+  case Theme::HighContrast:
+    SetupHighContrastTheme();
+    break;
+  case Theme::Custom:
+    // 自定义主题，不设置默认值
+    break;
   }
 }
 

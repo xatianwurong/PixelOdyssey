@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include <functional>
-#include "../core/ColorScheme.h"
 
 /**
  * @brief AutoCAD 风格 UI 基类

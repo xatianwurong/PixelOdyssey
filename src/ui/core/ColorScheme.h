@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <afxwin.h>
 #include <unordered_map>
@@ -7,7 +7,8 @@
  * @brief 现代化 UI 颜色方案
  * @details 提供多套主题支持，统一的色彩管理系统
  */
-class ColorScheme {
+class ColorScheme
+{
 public:
   // 预定义主题
   enum class Theme {
@@ -132,24 +133,6 @@ namespace UISpacing {
   constexpr int PANEL_PADDING = 16;
   constexpr int ITEM_SPACING = 8;
   constexpr int SECTION_SPACING = 24;
-}
-
-/**
- * @brief UI 字体常量
- */
-namespace UIFonts {
-  constexpr int TITLE_SIZE = 18;
-  constexpr int HEADING_SIZE = 16;
-  constexpr int BODY_SIZE = 14;
-  constexpr int CAPTION_SIZE = 12;
-  constexpr int SMALL_SIZE = 11;
-
-  constexpr int TITLE_WEIGHT = FW_BOLD;
-  constexpr int HEADING_WEIGHT = FW_SEMIBOLD;
-  constexpr int BODY_WEIGHT = FW_NORMAL;
-
-  const TCHAR* FONT_FAMILY = _T("Microsoft YaHei UI");
-  const TCHAR* MONOSPACE_FONT = _T("Consolas");
 }
 
 /**

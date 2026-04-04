@@ -1,5 +1,6 @@
 ﻿#include "AcadUIElement.h"
 #include "../core/ColorScheme.h"
+#include "UILayout.h"
 
 IMPLEMENT_DYNAMIC(CAcadUIElement, CWnd)
 
@@ -8,19 +9,19 @@ CAcadUIElement::CAcadUIElement()
 {
   // 创建字体 - 优化中文显示
   LOGFONT lf = { 0 };
-  lf.lfHeight = -UIFonts::BODY_SIZE;
-  lf.lfWeight = UIFonts::BODY_WEIGHT;
+  lf.lfHeight = -UILayout::UIFonts::BODY_SIZE;
+  lf.lfWeight = UILayout::UIFonts::BODY_WEIGHT;
   lf.lfQuality = CLEARTYPE_QUALITY;
   lf.lfCharSet = DEFAULT_CHARSET;
-  _tcscpy_s(lf.lfFaceName, UIFonts::FONT_FAMILY);
+  _tcscpy_s(lf.lfFaceName, UILayout::UIFonts::FONT_FAMILY);
   m_fontNormal.CreateFontIndirect(&lf);
 
-  lf.lfHeight = -UIFonts::HEADING_SIZE;
-  lf.lfWeight = UIFonts::HEADING_WEIGHT;
+  lf.lfHeight = -UILayout::UIFonts::HEADING_SIZE;
+  lf.lfWeight = UILayout::UIFonts::HEADING_WEIGHT;
   m_fontTitle.CreateFontIndirect(&lf);
 
-  lf.lfHeight = -UIFonts::CAPTION_SIZE;
-  lf.lfWeight = UIFonts::BODY_WEIGHT;
+  lf.lfHeight = -UILayout::UIFonts::CAPTION_SIZE;
+  lf.lfWeight = UILayout::UIFonts::BODY_WEIGHT;
   m_fontSmall.CreateFontIndirect(&lf);
 }
 

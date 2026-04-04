@@ -1,7 +1,7 @@
 ﻿#include "AcadToolPalette.h"
 #include "../core/ColorScheme.h"
 
-IMPLEMENT_DYNAMIC(CAcadToolPalette, CWnd)
+IMPLEMENT_DYNAMIC(CAcadToolPalette, CAcadUIElement)
 
 CAcadToolPalette::CAcadToolPalette()
   : m_activeTool(ToolType::Select)
