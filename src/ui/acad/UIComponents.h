@@ -44,7 +44,7 @@ public:
 
   void Draw(CDC* pDC, const CRect& rect, bool bHover) override {
     pDC->SetBkMode(TRANSPARENT);
-    pDC->SetTextColor(RGB(236, 240, 241));  // 亮色文本
+    pDC->SetTextColor(RGB(240, 240, 240));  // 亮色文本 - 优化对比度
     pDC->DrawText(text, (LPRECT)&rect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   }
 
@@ -66,19 +66,19 @@ public:
 
   void Draw(CDC* pDC, const CRect& rect, bool bHover) override {
     if (bHover && enabled) {
-      CBrush brush(RGB(60, 80, 100));
+      CBrush brush(RGB(50, 50, 50));  // 优化悬停背景色
       pDC->FillRect(&rect, &brush);
     }
 
     pDC->SetBkMode(TRANSPARENT);
 
-    // 属性名（灰色）
-    pDC->SetTextColor(RGB(149, 165, 166));
+    // 属性名（灰色）- 优化对比度
+    pDC->SetTextColor(RGB(160, 160, 160));
     CRect labelRect(rect.left + 5, rect.top, rect.left + rect.Width() / 2, rect.bottom);
     pDC->DrawText(name, (LPRECT)&labelRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-    // 属性值（白色）
-    pDC->SetTextColor(RGB(236, 240, 241));
+    // 属性值（白色）- 优化对比度
+    pDC->SetTextColor(RGB(240, 240, 240));
     CRect valueRect(rect.left + rect.Width() / 2, rect.top, rect.right - 5, rect.bottom);
     pDC->DrawText(value, (LPRECT)&valueRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
   }

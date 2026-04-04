@@ -2,25 +2,29 @@
 
 IMPLEMENT_DYNAMIC(CAcadUIElement, CWnd)
 
-// 静态颜色定义 - AutoCAD 风格深色主题
-COLORREF CAcadUIElement::ms_colorBackground = RGB(44, 62, 80);      // #2C3E50
-COLORREF CAcadUIElement::ms_colorPanelBg = RGB(52, 73, 94);         // #34495E
-COLORREF CAcadUIElement::ms_colorAccent = RGB(52, 152, 219);        // #3498DB
-COLORREF CAcadUIElement::ms_colorAccentHover = RGB(41, 128, 185);   // #2980B9
-COLORREF CAcadUIElement::ms_colorText = RGB(236, 240, 241);         // #ECF0F1
-COLORREF CAcadUIElement::ms_colorTextMuted = RGB(149, 165, 166);    // #95A5A6
-COLORREF CAcadUIElement::ms_colorBorder = RGB(74, 111, 165);        // #4A6FA5
-COLORREF CAcadUIElement::ms_colorHighlight = RGB(231, 76, 60);      // #E74C3C
+// 静态颜色定义 - 优化的 AutoCAD 风格深色主题
+COLORREF CAcadUIElement::ms_colorBackground = RGB(30, 30, 30);       // #1E1E1E
+COLORREF CAcadUIElement::ms_colorPanelBg = RGB(37, 37, 37);          // #252525
+COLORREF CAcadUIElement::ms_colorAccent = RGB(0, 120, 212);          // #0078D4
+COLORREF CAcadUIElement::ms_colorAccentHover = RGB(30, 144, 255);    // #1E90FF
+COLORREF CAcadUIElement::ms_colorText = RGB(240, 240, 240);          // #F0F0F0
+COLORREF CAcadUIElement::ms_colorTextMuted = RGB(128, 128, 128);     // #808080
+COLORREF CAcadUIElement::ms_colorBorder = RGB(62, 62, 66);           // #3E3E42
+COLORREF CAcadUIElement::ms_colorHighlight = RGB(255, 165, 0);       // #FFA500
+COLORREF CAcadUIElement::ms_colorSuccess = RGB(0, 200, 83);          // #00C853
+COLORREF CAcadUIElement::ms_colorWarning = RGB(255, 179, 0);         // #FFB300
+COLORREF CAcadUIElement::ms_colorError = RGB(244, 67, 54);           // #F44336
 
 CAcadUIElement::CAcadUIElement()
   : m_bVisible(true)
 {
-  // 创建字体
+  // 创建字体 - 优化中文显示
   LOGFONT lf = { 0 };
   lf.lfHeight = -14;
   lf.lfWeight = FW_NORMAL;
   lf.lfQuality = CLEARTYPE_QUALITY;
-  _tcscpy_s(lf.lfFaceName, _T("Segoe UI"));
+  lf.lfCharSet = DEFAULT_CHARSET;
+  _tcscpy_s(lf.lfFaceName, _T("Microsoft YaHei UI"));  // 使用微软雅黑，更好支持中文
   m_fontNormal.CreateFontIndirect(&lf);
 
   lf.lfHeight = -16;

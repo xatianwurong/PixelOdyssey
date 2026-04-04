@@ -24,14 +24,14 @@ CAcadMainWindow::CAcadMainWindow()
   , m_bSmoothShading(true)
   , m_bDepthTest(true)
 {
-  LOG(_T("[AcadMainWindow] Constructor called"));
+  
 }
 
 CAcadMainWindow::~CAcadMainWindow()
 {
-  LOG(_T("[AcadMainWindow] Destructor called"));
+  
   CleanupOpenGL();
-  //delete m_pUIManager;
+  
 }
 
 BEGIN_MESSAGE_MAP(CAcadMainWindow, CFrameWnd)

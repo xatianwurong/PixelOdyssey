@@ -141,12 +141,12 @@ void CAcadToolPalette::DrawToolButton(CDC* pDC, int index, const CRect& rect)
     bgColor = ms_colorAccentHover;  // 悬停深蓝色
   }
   else {
-    bgColor = RGB(60, 80, 100);  // 默认深色
+    bgColor = RGB(50, 50, 50);  // 优化默认深色
   }
 
-  // 圆角矩形背景
+  // 圆角矩形背景 - 优化边框
   CBrush brush(bgColor);
-  CPen pen(PS_SOLID, 1, btn.isHover ? ms_colorText : ms_colorBorder);
+  CPen pen(PS_SOLID, 1, btn.isHover ? RGB(240, 240, 240) : ms_colorBorder);  // 优化边框颜色
   CBrush* pOldBrush = pDC->SelectObject(&brush);
   CPen* pOldPen = pDC->SelectObject(&pen);
 
@@ -156,9 +156,9 @@ void CAcadToolPalette::DrawToolButton(CDC* pDC, int index, const CRect& rect)
   pDC->SelectObject(pOldBrush);
   pDC->SelectObject(pOldPen);
 
-  // 图标
+  // 图标 - 优化字体和颜色
   pDC->SetBkMode(TRANSPARENT);
-  pDC->SetTextColor(btn.isActive ? RGB(255, 255, 255) : ms_colorText);
+  pDC->SetTextColor(btn.isActive ? RGB(255, 255, 255) : RGB(240, 240, 240));  // 优化文本颜色
   pDC->SelectObject(&m_fontNormal);
 
   CString iconText;
