@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "AcadUIElement.h"
 #include "../../tools/Tool.h"
 #include <vector>

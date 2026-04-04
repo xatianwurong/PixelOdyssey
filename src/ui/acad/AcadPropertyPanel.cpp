@@ -1,4 +1,4 @@
-﻿#include "AcadPropertyPanel.h"
+#include "AcadPropertyPanel.h"
 #include "../core/ColorScheme.h"
 
 IMPLEMENT_DYNAMIC(CAcadPropertyPanel, CUnifiedPanel)

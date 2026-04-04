@@ -1,4 +1,4 @@
-﻿#include "UIComponents.h"
+#include "UIComponents.h"
 
 // CUnifiedPanel 消息映射
 BEGIN_MESSAGE_MAP(CUnifiedPanel, CWnd)

@@ -1,4 +1,4 @@
-﻿#include "AcadMainWindow.h"
+#include "AcadMainWindow.h"
 #include <GL/glew.h>
 #include <afxdialogex.h>
 #include <time.h>

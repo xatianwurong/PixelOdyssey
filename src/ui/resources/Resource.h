@@ -1,4 +1,4 @@
-﻿#define IDD_MAINDIALOG                    101
+#define IDD_MAINDIALOG                    101
 #define IDC_GROUP_RENDER                  1001
 #define IDC_BUTTON_START                  1002
 #define IDC_BUTTON_STOP                   1003

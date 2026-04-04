@@ -1,4 +1,4 @@
-﻿#include "GLDrawApp.h"
+#include "GLDrawApp.h"
 #include "acad/AcadMainWindow.h"
 
 // The one and only CGLDrawApp object

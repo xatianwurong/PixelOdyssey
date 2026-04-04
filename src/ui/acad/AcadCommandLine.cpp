@@ -1,4 +1,4 @@
-﻿#include "AcadCommandLine.h"
+#include "AcadCommandLine.h"
 #include "../core/ColorScheme.h"
 #include "winUser.h"
 

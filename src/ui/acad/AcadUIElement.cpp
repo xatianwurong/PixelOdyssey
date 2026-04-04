@@ -1,4 +1,4 @@
-﻿#include "AcadUIElement.h"
+#include "AcadUIElement.h"
 #include "../core/ColorScheme.h"
 
 IMPLEMENT_DYNAMIC(CAcadUIElement, CWnd)

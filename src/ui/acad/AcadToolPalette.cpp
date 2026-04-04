@@ -1,4 +1,4 @@
-﻿#include "AcadToolPalette.h"
+#include "AcadToolPalette.h"
 #include "../core/ColorScheme.h"
 
 IMPLEMENT_DYNAMIC(CAcadToolPalette, CWnd)

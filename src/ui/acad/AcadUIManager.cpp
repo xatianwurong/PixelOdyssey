@@ -1,4 +1,4 @@
-﻿#include "AcadUIManager.h"
+#include "AcadUIManager.h"
 #include "UILayout.h"
 
 BOOL CAcadUIManager::Initialize(CWnd* pParent)

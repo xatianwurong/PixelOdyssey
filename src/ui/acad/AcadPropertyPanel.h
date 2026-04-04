@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "AcadUIElement.h"
 #include "UIComponents.h"
 #include "../../core/ecs/Entity.h"

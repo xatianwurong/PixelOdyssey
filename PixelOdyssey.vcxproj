@@ -122,6 +122,7 @@
     <ClCompile Include="src\core\utils\PerformanceMonitor.cpp" />
     <ClCompile Include="src\ui\GLDrawApp.cpp" />
     <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
+    <ClCompile Include="src\ui\core\ColorScheme.cpp" />
     <ClCompile Include="src\ui\acad\AcadUIElement.cpp" />
     <ClCompile Include="src\ui\acad\AcadCommandLine.cpp" />
     <ClCompile Include="src\ui\acad\AcadToolPalette.cpp" />
@@ -168,12 +169,15 @@
     <ClInclude Include="src\core\utils\PerformanceMonitor.h" />
     <ClInclude Include="src\ui\GLDrawApp.h" />
     <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
+    <ClInclude Include="src\ui\core\ColorScheme.h" />
     <ClInclude Include="src\ui\acad\AcadUIElement.h" />
     <ClInclude Include="src\ui\acad\AcadCommandLine.h" />
     <ClInclude Include="src\ui\acad\AcadToolPalette.h" />
     <ClInclude Include="src\ui\acad\AcadPropertyPanel.h" />
     <ClInclude Include="src\ui\acad\AcadUIManager.h" />
     <ClInclude Include="src\ui\acad\AcadMainWindow.h" />
+    <ClInclude Include="src\ui\acad\UIComponents.h" />
+    <ClInclude Include="src\ui\acad\UILayout.h" />
     <ClInclude Include="src\app\Application.h" />
     <ClInclude Include="src\core\command\Command.h" />
     <ClInclude Include="src\core\command\CommandStack.h" />

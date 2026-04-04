@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "AcadToolPalette.h"
 #include "AcadPropertyPanel.h"
 #include "AcadCommandLine.h"

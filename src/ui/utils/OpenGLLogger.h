@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <afxwin.h>
 #include <time.h>
 #include <fstream>
