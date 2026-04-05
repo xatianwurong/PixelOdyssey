@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="examples\OpenGLDemo.cpp" />
     <ClCompile Include="src\core\entity\Object.cpp" />
     <ClCompile Include="src\core\entity\Cube.cpp" />
     <ClCompile Include="src\core\entity\Circle.cpp" />
@@ -112,6 +113,10 @@
     <ClCompile Include="src\core\entity\Shape.cpp" />
     <ClCompile Include="src\core\logging\Logger.cpp" />
     <ClCompile Include="src\core\renderer\Camera.cpp" />
+    <ClCompile Include="src\core\renderer\opengl\IndexBufferGL.cpp" />
+    <ClCompile Include="src\core\renderer\opengl\ShaderCompiler.cpp" />
+    <ClCompile Include="src\core\renderer\opengl\ShaderGL.cpp" />
+    <ClCompile Include="src\core\renderer\opengl\VertexBufferGL.cpp" />
     <ClCompile Include="src\core\renderer\RenderContext.cpp" />
     <ClCompile Include="src\core\renderer\RenderManager.cpp" />
     <ClCompile Include="src\core\renderer\VertexBuffer.cpp" />
@@ -126,7 +131,7 @@
     <ClCompile Include="src\ui\acad\UIToolbar.cpp" />
     <ClCompile Include="src\ui\core\ColorScheme.cpp" />
     <ClCompile Include="src\ui\GLDrawApp.cpp" />
-    <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
+    <!-- AutoCAD Style UI Components (精简�?- 无图层面�? -->
     <ClCompile Include="src\ui\acad\AcadUIElement.cpp" />
     <ClCompile Include="src\ui\acad\AcadCommandLine.cpp" />
     <ClCompile Include="src\ui\acad\AcadToolPalette.cpp" />
@@ -134,7 +139,6 @@
     <ClCompile Include="src\ui\acad\AcadUIManager.cpp" />
     <ClCompile Include="src\ui\acad\AcadMainWindow.cpp" />
     <ClCompile Include="src\ui\acad\UIComponents.cpp" />
-    <ClCompile Include="tests\core\renderer\RenderManagerExample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\entity\Object.h" />
@@ -167,6 +171,10 @@
     <ClInclude Include="src\core\renderer\interfaces\IRenderable.h" />
     <ClInclude Include="src\core\renderer\interfaces\IRenderContext.h" />
     <ClInclude Include="src\core\renderer\interfaces\IShader.h" />
+    <ClInclude Include="src\core\renderer\opengl\IndexBufferGL.h" />
+    <ClInclude Include="src\core\renderer\opengl\ShaderCompiler.h" />
+    <ClInclude Include="src\core\renderer\opengl\ShaderGL.h" />
+    <ClInclude Include="src\core\renderer\opengl\VertexBufferGL.h" />
     <ClInclude Include="src\core\renderer\RenderContext.h" />
     <ClInclude Include="src\core\renderer\RenderManager.h" />
     <ClInclude Include="src\core\renderer\VertexBuffer.h" />
@@ -185,7 +193,7 @@
     <ClInclude Include="src\ui\acad\UIToolbar.h" />
     <ClInclude Include="src\ui\core\ColorScheme.h" />
     <ClInclude Include="src\ui\GLDrawApp.h" />
-    <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
+    <!-- AutoCAD Style UI Components (精简�?- 无图层面�? -->
     <ClInclude Include="src\ui\acad\AcadUIElement.h" />
     <ClInclude Include="src\ui\acad\AcadCommandLine.h" />
     <ClInclude Include="src\ui\acad\AcadToolPalette.h" />
@@ -219,6 +227,13 @@
     <ResourceCompile Include="src\ui\resources\GLDrawApp.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="PHASE2_COMPLETION_CHECKLIST.md" />
+    <None Include="PHASE2_DOCUMENTATION_INDEX.md" />
+    <None Include="PHASE2_EXECUTIVE_SUMMARY.md" />
+    <None Include="PHASE2_KICKOFF_COMPLETION_REPORT.md" />
+    <None Include="PHASE2_KICKOFF_SUMMARY.md" />
+    <None Include="PHASE2_QUICK_SUMMARY.md" />
+    <None Include="PIXELODYSSEY_PROJECT_ROADMAP.md" />
     <None Include="PROJECT_COMPLETION_SUMMARY.md" />
     <None Include="QUICK_START.md" />
     <None Include="README_UI_OPTIMIZATION.md" />
@@ -232,6 +247,8 @@
     <None Include="res\shaders\KcCube.shader" />
     <None Include="res\shaders\Shape.shader" />
     <None Include="src\core\renderer\PHASE1_COMPLETION_REPORT.md" />
+    <None Include="src\core\renderer\PHASE2_IMPLEMENTATION_PLAN.md" />
+    <None Include="src\core\renderer\PHASE2_PROGRESS_REPORT.md" />
     <None Include="src\core\renderer\RENDERING_MODULE_REFACTOR_PLAN.md" />
     <None Include="src\ui\acad\ANALYSIS_COMPLETION_SUMMARY.md" />
     <None Include="src\ui\acad\ANALYSIS_FINAL_REPORT.md" />
