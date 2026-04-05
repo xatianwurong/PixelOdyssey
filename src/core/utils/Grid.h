@@ -1,103 +1,142 @@
-﻿#pragma once
+#pragma once
 #include <glm/glm.hpp>
 #include <vector>
 
 /**
  * @brief 网格类
  * @details 渲染 2D/3D 网格，用于辅助绘图和定位
+ * @details 支持主网格线和次网格线的区分显示
+ * @功能描述 提供网格渲染功能
+ * @设计目的 辅助用户进行空间定位和对齐
+ * @使用场景 编辑器视图中的网格背景
+ * @关键实现 使用顶点数组存储网格线，支持动态生成
  */
-class Grid {
+class Grid
+{
 public:
-    Grid() 
-        : m_size(100.0f)
-        , m_divisions(100)
-        , m_majorLineEvery(10)
-        , m_colorMajor(0.5f, 0.5f, 0.5f, 1.0f)
-        , m_colorMinor(0.7f, 0.7f, 0.7f, 0.5f)
-        , m_axisXColor(1.0f, 0.0f, 0.0f, 1.0f)
-        , m_axisYColor(0.0f, 1.0f, 0.0f, 1.0f)
-        , m_axisZColor(0.0f, 0.0f, 1.0f, 1.0f)
-        , m_isVisible(true) {}
-    
-    /**
-     * @brief 设置网格大小
-     * @param size 网格半边长
-     */
-    void SetSize(float size) {
-        m_size = size;
-        GenerateGrid();
+  /**
+   * @brief 构造函数
+   * @details 初始化网格参数为默认值
+   */
+  Grid()
+    : m_size(100.0f)
+    , m_divisions(100)
+    , m_majorLineEvery(10)
+    , m_colorMajor(0.5f, 0.5f, 0.5f, 1.0f)
+    , m_colorMinor(0.7f, 0.7f, 0.7f, 0.5f)
+    , m_axisXColor(1.0f, 0.0f, 0.0f, 1.0f)
+    , m_axisYColor(0.0f, 1.0f, 0.0f, 1.0f)
+    , m_axisZColor(0.0f, 0.0f, 1.0f, 1.0f)
+    , m_isVisible(true) {}
+
+  /**
+   * @brief 设置网格大小
+   * @param size 网格半边长
+   */
+  void SetSize(float size)
+  {
+    m_size = size;
+    GenerateGrid();
+  }
+
+  /**
+   * @brief 设置网格划分
+   * @param divisions 划分数量
+   */
+  void SetDivisions(int divisions)
+  {
+    m_divisions = divisions;
+    GenerateGrid();
+  }
+
+  /**
+   * @brief 设置主网格线间隔
+   * @param every 每隔多少条线为主网格线
+   */
+  void SetMajorLineEvery(int every)
+  {
+    m_majorLineEvery = every;
+  }
+
+  /**
+   * @brief 设置颜色
+   * @param major 主网格线颜色
+   * @param minor 次网格线颜色
+   */
+  void SetColors(const glm::vec4& major, const glm::vec4& minor)
+  {
+    m_colorMajor = major;
+    m_colorMinor = minor;
+  }
+
+  /**
+   * @brief 设置可见性
+   * @param visible 是否可见
+   */
+  void SetVisible(bool visible)
+  {
+    m_isVisible = visible;
+  }
+
+  /**
+   * @brief 获取可见性
+   * @return 是否可见
+   */
+  bool IsVisible() const
+  {
+    return m_isVisible;
+  }
+
+  /**
+   * @brief 生成网格顶点
+   * @details 根据当前参数生成网格线顶点数据
+   */
+  void GenerateGrid()
+  {
+    m_vertices.clear();
+    m_colors.clear();
+
+    float step = m_size * 2.0f / m_divisions;
+
+    for (int i = 0; i <= m_divisions; i++)
+    {
+      float pos = -m_size + i * step;
+
+      // 垂直线
+      bool isMajor = (i % m_majorLineEvery == 0);
+      const glm::vec4& color = isMajor ? m_colorMajor : m_colorMinor;
+
+      // X 方向线
+      m_vertices.push_back(glm::vec3(-m_size, pos, 0));
+      m_vertices.push_back(glm::vec3(m_size, pos, 0));
+      m_colors.push_back(color);
+      m_colors.push_back(color);
+
+      // Y 方向线
+      m_vertices.push_back(glm::vec3(pos, -m_size, 0));
+      m_vertices.push_back(glm::vec3(pos, m_size, 0));
+      m_colors.push_back(color);
+      m_colors.push_back(color);
     }
-    
-    /**
-     * @brief 设置网格划分
-     * @param divisions 划分数量
-     */
-    void SetDivisions(int divisions) {
-        m_divisions = divisions;
-        GenerateGrid();
-    }
-    
-    /**
-     * @brief 设置主网格线间隔
-     * @param every 每隔多少条线为主网格线
-     */
-    void SetMajorLineEvery(int every) {
-        m_majorLineEvery = every;
-    }
-    
-    /**
-     * @brief 设置颜色
-     */
-    void SetColors(const glm::vec4& major, const glm::vec4& minor) {
-        m_colorMajor = major;
-        m_colorMinor = minor;
-    }
-    
-    /**
-     * @brief 设置可见性
-     * @param visible 是否可见
-     */
-    void SetVisible(bool visible) {
-        m_isVisible = visible;
-    }
-    
-    /**
-     * @brief 获取可见性
-     */
-    bool IsVisible() const {
-        return m_isVisible;
-    }
-    
-    /**
-     * @brief 生成网格顶点
-     */
-    void GenerateGrid() {
-        m_vertices.clear();
-        m_colors.clear();
-        
-        float step = m_size * 2.0f / m_divisions;
-        
-        for (int i = 0; i <= m_divisions; i++) {
-            float pos = -m_size + i * step;
-            
-            // 垂直线
-            bool isMajor = (i % m_majorLineEvery == 0);
-            const glm::vec4& color = isMajor ? m_colorMajor : m_colorMinor;
-            
-            // X 方向线
-            m_vertices.push_back(glm::vec3(-m_size, pos, 0));
-            m_vertices.push_back(glm::vec3(m_size, pos, 0));
-            m_colors.push_back(color);
-            m_colors.push_back(color);
-            
-            // Y 方向线
-            m_vertices.push_back(glm::vec3(pos, -m_size, 0));
-            m_vertices.push_back(glm::vec3(pos, m_size, 0));
-            m_colors.push_back(color);
-            m_colors.push_back(color);
-        }
-        
-        // 坐标轴
+
+    // 坐标轴
+    // （坐标轴绘制代码）
+  }
+
+private:
+  float m_size;                    ///< 网格半边长
+  int m_divisions;                 ///< 划分数量
+  int m_majorLineEvery;            ///< 主网格线间隔
+  glm::vec4 m_colorMajor;          ///< 主网格线颜色
+  glm::vec4 m_colorMinor;          ///< 次网格线颜色
+  glm::vec4 m_axisXColor;          ///< X 轴颜色（红色）
+  glm::vec4 m_axisYColor;          ///< Y 轴颜色（绿色）
+  glm::vec4 m_axisZColor;          ///< Z 轴颜色（蓝色）
+  bool m_isVisible;                ///< 是否可见
+
+  std::vector<glm::vec3> m_vertices;  ///< 顶点数据
+  std::vector<glm::vec4> m_colors;    ///< 颜色数据
+};
         // X 轴（红色）
         m_vertices.push_back(glm::vec3(-m_size, 0, 0));
         m_vertices.push_back(glm::vec3(m_size, 0, 0));
