@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "UIComponents.h"
 #include "../../core/ecs/Entity.h"
@@ -44,7 +44,7 @@ public:
 protected:
     DECLARE_MESSAGE_MAP()
 
-    afx_msg void OnDraw(CDC* pDC) override;
+    afx_msg void OnDraw(CDC* pDC);
 
 private:
     Entity m_selectedEntity;      ///< 当前选中的实体

@@ -11,9 +11,9 @@ namespace UILayout {
   // =========================================================================
   // 主要尺寸常量 - 优化空间分配
   // =========================================================================
-  constexpr int TOOL_WIDTH = 60;           // 左侧工具栏宽度 (增加以容纳更大图标)
-  constexpr int PANEL_WIDTH = 320;         // 右侧面板宽度 (增加以显示更多内容)
-  constexpr int COMMAND_HEIGHT = 180;      // 底部命令行高度 (增加以显示更多历史)
+  constexpr int TOOL_WIDTH = 80;           // 左侧工具栏宽度
+  constexpr int PANEL_WIDTH = 320;         // 右侧面板宽度
+  constexpr int COMMAND_HEIGHT = 0;        // 底部命令行高度 (已移除)
 
   // =========================================================================
   // 间距常量 - 基于 8px 基准网格系统
@@ -48,11 +48,10 @@ namespace UILayout {
   }
 
   // =========================================================================
-  // 命令行区域 - 占满底部
+  // 命令行区域 - 已移除
   // =========================================================================
   inline CRect GetCommandLineRect(int clientWidth, int clientHeight) {
-    return CRect(TOOL_WIDTH, clientHeight - COMMAND_HEIGHT,
-      clientWidth, clientHeight);
+    return CRect(0, clientHeight, 0, clientHeight);  // 空矩形
   }
 
   // =========================================================================
@@ -93,17 +92,17 @@ namespace UILayout {
       if (isExtraSmall) {
         metrics.toolWidth = 52;
         metrics.panelWidth = 260;
-        metrics.commandHeight = 140;
+        metrics.commandHeight = 0;  // 已移除
       }
       else if (isSmallScreen) {
         metrics.toolWidth = 56;
         metrics.panelWidth = 290;
-        metrics.commandHeight = 160;
+        metrics.commandHeight = 0;  // 已移除
       }
       else {
         metrics.toolWidth = TOOL_WIDTH;
         metrics.panelWidth = PANEL_WIDTH;
-        metrics.commandHeight = COMMAND_HEIGHT;
+        metrics.commandHeight = COMMAND_HEIGHT;  // 0
       }
 
       metrics.toolRect = CRect(0, 0, metrics.toolWidth, clientHeight);
@@ -129,6 +128,7 @@ namespace UILayout {
     constexpr int CAPTION_SIZE = 12;       // 说明文字
     constexpr int SMALL_SIZE = 11;         // 小字
     constexpr int MONOSPACE_SIZE = 12;     // 等宽字体 (命令行)
+    constexpr int TOOL_ICON_SIZE = 16;     // 工具栏图标字体 (Segoe MDL2)
 
     constexpr int TITLE_WEIGHT = FW_SEMIBOLD;
     constexpr int HEADING_WEIGHT = FW_MEDIUM;
@@ -136,6 +136,8 @@ namespace UILayout {
 
     inline constexpr const TCHAR* FONT_FAMILY = _T("Microsoft YaHei UI");
     inline constexpr const TCHAR* MONOSPACE_FONT = _T("Consolas");
+    inline constexpr const TCHAR* SYMBOL_FONT = _T("Segoe MDL2 Assets");     // Windows 内置符号字体
+    inline constexpr const TCHAR* FALLBACK_FONT = _T("SimSun");               // 备用中文字体
   }
 
   // =========================================================================

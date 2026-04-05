@@ -1,5 +1,7 @@
-#include "AcadPropertyPanel.h"
+﻿#include "AcadPropertyPanel.h"
+#include "UICommon.h"
 #include "UILayout.h"
+#include "../core/ColorScheme.h"
 
 IMPLEMENT_DYNAMIC(CAcadPropertyPanel, CUnifiedPanel)
 
@@ -93,39 +95,49 @@ void CAcadPropertyPanel::OnDraw(CDC* pDC)
     GetClientRect(&rect);
     auto& colors = ColorScheme::Instance();
 
-    // 绘制标题背景
-    CRect titleRect(0, 0, rect.Width(), 35);
+    // 绘制背景
+    CBrush bgBrush(colors.GetColor(ColorScheme::ColorRole::Background));
+    pDC->FillRect(&rect, &bgBrush);
+
+    // 绘制标题栏 - 上部 48px
+    CRect titleRect(0, 0, rect.Width(), 48);
     CBrush titleBrush(colors.GetColor(ColorScheme::ColorRole::Surface));
     pDC->FillRect(&titleRect, &titleBrush);
 
-    // 绘制标题
+    // 标题文本 - 使用更大的标题字体
     pDC->SetBkMode(TRANSPARENT);
     pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
-    CFont* pFontTitle = GetTitleFont();
-    pDC->SelectObject(pFontTitle);
-    pDC->DrawText(m_title, &titleRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
-    titleRect.left += 10;
+    pDC->SelectObject(UICommon::GetTitleFont());
 
-    // 分隔线
-    CPen borderPen(PS_SOLID, 1, colors.GetColor(ColorScheme::ColorRole::Border));
-    pDC->SelectObject(&borderPen);
-    pDC->MoveTo(0, 35);
-    pDC->LineTo(rect.Width(), 35);
-}
+    CRect titleTextRect = titleRect;
+    titleTextRect.DeflateRect(16, 0, 16, 0);
+    pDC->DrawText(m_title, reinterpret_cast<LPRECT>(&titleTextRect), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-CFont* CAcadPropertyPanel::GetTitleFont()
-{
-    static CFont font;
-    static bool initialized = false;
-    if (!initialized)
-    {
-        LOGFONT lf = {};
-        lf.lfHeight = -UILayout::UIFonts::HEADING_SIZE;
-        lf.lfWeight = UILayout::UIFonts::HEADING_WEIGHT;
-        lf.lfQuality = CLEARTYPE_QUALITY;
-        _tcscpy_s(lf.lfFaceName, UILayout::UIFonts::FONT_FAMILY);
-        font.CreateFontIndirect(&lf);
-        initialized = true;
+    // 绘制分隔线
+    CPen pen(PS_SOLID, 1, colors.GetColor(ColorScheme::ColorRole::Border));
+    CPen* pOldPen = pDC->SelectObject(&pen);
+    pDC->MoveTo(0, 48);
+    pDC->LineTo(rect.Width(), 48);
+    pDC->SelectObject(pOldPen);
+
+    // 绘制内容区域的项目，使用改进的间距
+    CRect contentRect = rect;
+    contentRect.top = 48;
+
+    int y = contentRect.top + paddingTop - scrollOffset;
+
+    for (size_t i = 0; i < items.size(); i++) {
+        int itemHeight = items[i]->GetHeight();
+
+        // 检查是否在可见范围内
+        if (y + itemHeight > contentRect.top && y < contentRect.bottom - paddingBottom) {
+            CRect itemRect(contentRect.left + paddingLeft, y,
+                          contentRect.right - paddingRight, y + itemHeight);
+
+            bool bHover = (i == (size_t)hoverIndex);
+            items[i]->Draw(pDC, itemRect, bHover);
+        }
+
+        y += itemHeight + itemSpacing;
     }
-    return &font;
 }

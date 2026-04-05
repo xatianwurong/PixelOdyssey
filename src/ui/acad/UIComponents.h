@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <afxwin.h>
 #include <vector>
@@ -8,6 +8,7 @@
 #include <memory>
 #include "../core/ColorScheme.h"
 #include "UILayout.h"
+#include "UICommon.h"
 
 /**
  * @brief UI 面板项基类
@@ -64,11 +65,13 @@ public:
         auto& colors = ColorScheme::Instance();
         pDC->SetBkMode(TRANSPARENT);
         pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
-        pDC->SelectObject(GetNormalFont());
-        pDC->DrawText(text, const_cast<LPRECT>(&rect), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+        pDC->SelectObject(UICommon::GetTitleFont());  // 使用标题字体使标签更显眼
+        CRect trect = rect;
+        trect.DeflateRect(UISpacing::M, UISpacing::S);
+        pDC->DrawText(text, reinterpret_cast<LPRECT>(&trect), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
     }
 
-    int GetHeight() const override { return 28; }
+    int GetHeight() const override { return 36; }  // 增加到 36px
 
     void SetText(const CString& newText) { text = newText; }
     const CString& GetText() const { return text; }
@@ -76,22 +79,7 @@ public:
 private:
     CString text;
 
-    static CFont* GetNormalFont()
-    {
-        static CFont font;
-        static bool initialized = false;
-        if (!initialized)
-        {
-            LOGFONT lf = {};
-            lf.lfHeight = -UILayout::UIFonts::BODY_SIZE;
-            lf.lfWeight = UILayout::UIFonts::BODY_WEIGHT;
-            lf.lfQuality = CLEARTYPE_QUALITY;
-            _tcscpy_s(lf.lfFaceName, UILayout::UIFonts::FONT_FAMILY);
-            font.CreateFontIndirect(&lf);
-            initialized = true;
-        }
-        return &font;
-    }
+    // fonts are provided by UICommon
 };
 
 /**
@@ -101,8 +89,9 @@ class CUIPropertyItem : public CUIPanelItem
 {
 public:
     CUIPropertyItem(const CString& propName, const CString& propValue)
-        : name(propName), value(propValue)
     {
+        name = propName;
+        value = propValue;
     }
 
     void Draw(CDC* pDC, const CRect& rect, bool bHover) override
@@ -117,20 +106,24 @@ public:
         }
 
         pDC->SetBkMode(TRANSPARENT);
-        pDC->SelectObject(GetNormalFont());
+        pDC->SelectObject(UICommon::GetBodyFont());
 
-        // 属性名（次要文字）
+        // 属性名（次要文字） - 左侧 40%
         pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextSecondary));
-        CRect labelRect(rect.left + 8, rect.top, rect.left + rect.Width() / 2 - 4, rect.bottom);
-        pDC->DrawText(name, const_cast<LPRECT>(&labelRect), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+        CRect labelRect = rect;
+        labelRect.DeflateRect(UISpacing::M, UISpacing::S);  // 使用更大的间距
+        labelRect.right = rect.left + (rect.Width() * 40) / 100;
+        pDC->DrawText(name, reinterpret_cast<LPRECT>(&labelRect), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
 
-        // 属性值（主要文字）- 右对齐显示
+        // 属性值（主要文字） - 右侧 60% - 右对齐显示
         pDC->SetTextColor(colors.GetColor(ColorScheme::ColorRole::TextPrimary));
-        CRect valueRect(rect.left + rect.Width() / 2 + 4, rect.top, rect.right - 8, rect.bottom);
-        pDC->DrawText(value, const_cast<LPRECT>(&valueRect), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+        CRect valueRect = rect;
+        valueRect.DeflateRect(UISpacing::M, UISpacing::S);
+        valueRect.left = rect.left + (rect.Width() * 40) / 100;
+        pDC->DrawText(value, reinterpret_cast<LPRECT>(&valueRect), DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
     }
 
-    int GetHeight() const override { return 32; }
+    int GetHeight() const override { return 40; }  // 增加到 40px，给更多空间
 
     void SetValue(const CString& newValue) { value = newValue; }
     const CString& GetValue() const { return value; }
@@ -140,19 +133,7 @@ private:
 
     static CFont* GetNormalFont()
     {
-        static CFont font;
-        static bool initialized = false;
-        if (!initialized)
-        {
-            LOGFONT lf = {};
-            lf.lfHeight = -UILayout::UIFonts::BODY_SIZE;
-            lf.lfWeight = UILayout::UIFonts::BODY_WEIGHT;
-            lf.lfQuality = CLEARTYPE_QUALITY;
-            _tcscpy_s(lf.lfFaceName, UILayout::UIFonts::FONT_FAMILY);
-            font.CreateFontIndirect(&lf);
-            initialized = true;
-        }
-        return &font;
+        return UICommon::GetBodyFont();
     }
 };
 
@@ -175,7 +156,7 @@ public:
         pDC->SelectObject(pOldPen);
     }
 
-    int GetHeight() const override { return 16; }
+    int GetHeight() const override { return 24; }  // 增加到 24px
 };
 
 /**
@@ -187,8 +168,9 @@ public:
     using ClickCallback = std::function<void()>;
 
     CUIButton(const CString& btnName, const CString& btnLabel)
-        : name(btnName), label(btnLabel), isPressed(false)
+        : label(btnLabel), isPressed(false)
     {
+        name = btnName;
         enabled = true;
     }
 
@@ -222,8 +204,8 @@ public:
 
         // 绘制圆角矩形
         CRect btnRect = rect;
-        btnRect.DeflateRect(4, 2);
-        pDC->RoundRect(&btnRect, CPoint(6, 6));
+        btnRect.DeflateRect(UISpacing::S, 2);
+        pDC->RoundRect(&btnRect, CPoint(UISizes::CORNER_RADIUS_MEDIUM, UISizes::CORNER_RADIUS_MEDIUM));
         pDC->SelectObject(pOldPen);
 
         // 文本
@@ -232,11 +214,13 @@ public:
                              : isPressed || bHover ? RGB(255, 255, 255)
                                                    : colors.GetColor(ColorScheme::ColorRole::TextPrimary);
         pDC->SetTextColor(textColor);
-        pDC->SelectObject(GetNormalFont());
-        pDC->DrawText(label, const_cast<LPRECT>(&rect), DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+        pDC->SelectObject(UICommon::GetBodyFont());
+        CRect textRect = rect;
+        textRect.DeflateRect(UISpacing::BUTTON_PADDING_X / 2, 0);
+        pDC->DrawText(label, reinterpret_cast<LPRECT>(&textRect), DT_CENTER | DT_VCENTER | DT_SINGLELINE);
     }
 
-    int GetHeight() const override { return 38; }
+    int GetHeight() const override { return 44; }  // 增加到 44px，给更多空间
 
     bool OnClick(const CPoint& /*point*/) override
     {
@@ -259,19 +243,7 @@ private:
 
     static CFont* GetNormalFont()
     {
-        static CFont font;
-        static bool initialized = false;
-        if (!initialized)
-        {
-            LOGFONT lf = {};
-            lf.lfHeight = -UILayout::UIFonts::BODY_SIZE;
-            lf.lfWeight = UILayout::UIFonts::BODY_WEIGHT;
-            lf.lfQuality = CLEARTYPE_QUALITY;
-            _tcscpy_s(lf.lfFaceName, UILayout::UIFonts::FONT_FAMILY);
-            font.CreateFontIndirect(&lf);
-            initialized = true;
-        }
-        return &font;
+        return UICommon::GetBodyFont();
     }
 };
 
@@ -289,11 +261,11 @@ class CUnifiedPanel : public CWnd
 {
 protected:
     std::vector<std::unique_ptr<CUIPanelItem>> items;  ///< 使用智能指针管理
-    int itemSpacing = 4;
-    int paddingLeft = 12;
-    int paddingRight = 12;
-    int paddingTop = 48;
-    int paddingBottom = 12;
+    int itemSpacing = UISpacing::M;           ///< 项间距 - 增加到 16px
+    int paddingLeft = UISpacing::M;           ///< 左内边距
+    int paddingRight = UISpacing::M;          ///< 右内边距
+    int paddingTop = 48 + UISpacing::M;       ///< 顶部内边距（给标题留空）
+    int paddingBottom = UISpacing::L;         ///< 底部内边距 - 增加到 24px 防止重叠
     int scrollOffset = 0;
     int totalHeight = 0;
     int hoverIndex = -1;
@@ -376,7 +348,21 @@ public:
         return nullptr;
     }
 
+    /**
+     * @brief 绘制面板（子类可重写以实现自定义背景）
+     */
+    virtual void OnDrawPanel(CDC* pDC, const CRect& rect)
+    {
+        auto& colors = ColorScheme::Instance();
+        CBrush bgBrush(colors.GetColor(ColorScheme::ColorRole::Background));
+        pDC->FillRect(&rect, &bgBrush);
+    }
+
 protected:
+    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+    afx_msg void OnPaint();
+    afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+
     afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
     {
         SetScrollOffset(scrollOffset - zDelta);

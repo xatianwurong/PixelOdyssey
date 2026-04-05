@@ -22,7 +22,7 @@ public:
   /**
    * @brief 添加工具按钮
    */
-  void AddToolButton(ToolType type, const CString& tooltip, int iconChar);
+  void AddToolButton(ToolType type, const CString& tooltip, int iconType);
 
   /**
    * @brief 设置当前工具
@@ -57,7 +57,7 @@ private:
   struct ToolButton {
     ToolType type;
     CString tooltip;
-    int iconChar;
+    int iconType;           // 0-4 对应五种图标
     CRect rect;
     bool isActive;
     bool isHover;

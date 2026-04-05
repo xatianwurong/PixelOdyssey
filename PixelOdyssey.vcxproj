@@ -121,6 +121,7 @@
     <ClCompile Include="src\core\scene\SceneManager.cpp" />
     <ClCompile Include="src\core\utils\Utility.cpp" />
     <ClCompile Include="src\core\utils\PerformanceMonitor.cpp" />
+    <ClCompile Include="src\ui\acad\UIToolbar.cpp" />
     <ClCompile Include="src\ui\core\ColorScheme.cpp" />
     <ClCompile Include="src\ui\GLDrawApp.cpp" />
     <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
@@ -168,8 +169,11 @@
     <ClInclude Include="src\core\scene\SceneManager.h" />
     <ClInclude Include="src\core\utils\Utility.h" />
     <ClInclude Include="src\core\utils\PerformanceMonitor.h" />
+    <ClInclude Include="src\ui\acad\UICommon.h" />
     <ClInclude Include="src\ui\acad\UIComponents.h" />
+    <ClInclude Include="src\ui\acad\UIDesignSystem.h" />
     <ClInclude Include="src\ui\acad\UILayout.h" />
+    <ClInclude Include="src\ui\acad\UIToolbar.h" />
     <ClInclude Include="src\ui\core\ColorScheme.h" />
     <ClInclude Include="src\ui\GLDrawApp.h" />
     <!-- AutoCAD Style UI Components (精简版 - 无图层面板) -->
@@ -206,9 +210,39 @@
     <ResourceCompile Include="src\ui\resources\GLDrawApp.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="QUICK_START.md" />
+    <None Include="README_UI_OPTIMIZATION.md" />
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\KcCube.shader" />
     <None Include="res\shaders\Shape.shader" />
+    <None Include="src\ui\acad\ANALYSIS_COMPLETION_SUMMARY.md" />
+    <None Include="src\ui\acad\ANALYSIS_FINAL_REPORT.md" />
+    <None Include="src\ui\acad\BEFORE_AFTER_COMPARISON.md" />
+    <None Include="src\ui\acad\CHANGELOG.md" />
+    <None Include="src\ui\acad\COMPLETE_REFACTOR_SUMMARY.md" />
+    <None Include="src\ui\acad\COMPLETION_SUMMARY_CN.md" />
+    <None Include="src\ui\acad\COMPREHENSIVE_ANALYSIS_AND_REFACTOR_PLAN.md" />
+    <None Include="src\ui\acad\DELIVERABLES_CHECKLIST.md" />
+    <None Include="src\ui\acad\DESIGN_SYSTEM.md" />
+    <None Include="src\ui\acad\DOCUMENTATION_INDEX.md" />
+    <None Include="src\ui\acad\EXECUTIVE_SUMMARY.md" />
+    <None Include="src\ui\acad\FINAL_DELIVERY_REPORT.md" />
+    <None Include="src\ui\acad\IMPLEMENTATION_GUIDE.md" />
+    <None Include="src\ui\acad\IMPLEMENTATION_GUIDE_DETAILED.md" />
+    <None Include="src\ui\acad\LAYOUT_TUNING.md" />
+    <None Include="src\ui\acad\PROJECT_COMPLETION_SUMMARY.md" />
+    <None Include="src\ui\acad\PROJECT_STRUCTURE_OVERVIEW.md" />
+    <None Include="src\ui\acad\QUICK_REFERENCE.md" />
+    <None Include="src\ui\acad\QUICK_REFERENCE_CARD.md" />
+    <None Include="src\ui\acad\QUICK_REFERENCE_CARD_REFACTOR.md" />
+    <None Include="src\ui\acad\README_REFACTOR_ANALYSIS.md" />
+    <None Include="src\ui\acad\REFACTOR_SUMMARY.md" />
+    <None Include="src\ui\acad\RISK_ASSESSMENT_AND_MITIGATION.md" />
+    <None Include="src\ui\acad\TASK_CHECKLIST_AND_PRIORITY.md" />
+    <None Include="src\ui\acad\UIBestPractices.md" />
+    <None Include="src\ui\acad\UIRefactor.md" />
+    <None Include="src\ui\acad\UI_OPTIMIZATION.md" />
+    <None Include="src\ui\acad\USAGE_GUIDE.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,5 @@
-#include "AcadUIElement.h"
+﻿#include "AcadUIElement.h"
+#include "UICommon.h"
 #include "../core/ColorScheme.h"
 #include "UILayout.h"
 
@@ -24,9 +25,13 @@ END_MESSAGE_MAP()
 
 void CAcadUIElement::InitializeFonts()
 {
-    // 使用 UILayout 中定义的统一字体配置
+    // 使用 UICommon 提供的字体缓存接口，避免重复创建
+    // 注意：GetBodyFont() 等返回的是静态缓存的 CFont*，这里不能直接赋值
+    // 而应该在 DrawText 时通过 pDC->SelectObject(UICommon::GetBodyFont()) 使用
+
+    // 保留本地字体成员用于兼容性，但使用 UICommon 的逻辑创建
     LOGFONT lf = {};
-    
+
     // 正常字体 - 正文使用
     lf.lfHeight = -UILayout::UIFonts::BODY_SIZE;
     lf.lfWeight = UILayout::UIFonts::BODY_WEIGHT;
@@ -41,11 +46,13 @@ void CAcadUIElement::InitializeFonts()
     // 标题字体 - 更粗更大
     lf.lfHeight = -UILayout::UIFonts::HEADING_SIZE;
     lf.lfWeight = UILayout::UIFonts::HEADING_WEIGHT;
+    _tcscpy_s(lf.lfFaceName, UILayout::UIFonts::FONT_FAMILY);
     m_fontTitle.CreateFontIndirect(&lf);
 
     // 小字体 - 说明文字
     lf.lfHeight = -UILayout::UIFonts::CAPTION_SIZE;
     lf.lfWeight = UILayout::UIFonts::BODY_WEIGHT;
+    _tcscpy_s(lf.lfFaceName, UILayout::UIFonts::FONT_FAMILY);
     m_fontSmall.CreateFontIndirect(&lf);
 }
 

@@ -1,4 +1,6 @@
 ﻿#include "AcadToolPalette.h"
+#include "UICommon.h"
+#include "UIToolbar.h"
 #include "../core/ColorScheme.h"
 
 IMPLEMENT_DYNAMIC(CAcadToolPalette, CAcadUIElement)
@@ -28,22 +30,22 @@ BOOL CAcadToolPalette::Create(CWnd* pParent, UINT nID, const CRect& rect)
     return FALSE;
   }
 
-  // 添加默认工具
-  AddToolButton(ToolType::Select, _T("Select Tool (V)"), 0x25B6);  // ▶
-  AddToolButton(ToolType::Move, _T("Move Tool (G)"), 0x271A);      // ➤
-  AddToolButton(ToolType::Rotate, _T("Rotate Tool (R)"), 0x27F2);  // ⟲
-  AddToolButton(ToolType::Scale, _T("Scale Tool (S)"), 0x2194);    // ↔
-  AddToolButton(ToolType::Pan, _T("Pan Tool (H)"), 0x270B);        // ✋
+  // 添加默认工具 - 改用简单的中文标签
+  AddToolButton(ToolType::Select, _T("选择 (V)"), 'S');  // Select
+  AddToolButton(ToolType::Move, _T("移动 (G)"), 'M');    // Move
+  AddToolButton(ToolType::Rotate, _T("旋转 (R)"), 'R');  // Rotate
+  AddToolButton(ToolType::Scale, _T("缩放 (S)"), 'Z');   // Zoom/Scale
+  AddToolButton(ToolType::Pan, _T("平移 (H)"), 'P');     // Pan
 
   return TRUE;
 }
 
-void CAcadToolPalette::AddToolButton(ToolType type, const CString& tooltip, int iconChar)
+void CAcadToolPalette::AddToolButton(ToolType type, const CString& tooltip, int iconType)
 {
   ToolButton btn;
   btn.type = type;
   btn.tooltip = tooltip;
-  btn.iconChar = iconChar;
+  btn.iconType = iconType;
   btn.isActive = (type == m_activeTool);
   btn.isHover = false;
   m_buttons.push_back(btn);
@@ -66,16 +68,54 @@ void CAcadToolPalette::OnDraw(CDC* pDC)
   CRect rect;
   GetClientRect(&rect);
 
-  int x = 10;
-  int y = 10;
+  // 优化尺寸：根据工具栏宽度自动调整
+  int buttonWidth = rect.Width() - 4;      // 保留 2px 边距
+  int buttonHeight = 70;                   // 高度增加，给文字更多空间
+  int spacing = 4;                         // 按钮间距
+
+  int x = 2;                               // 左边距
+  int y = 6;                               // 顶部边距
 
   for (size_t i = 0; i < m_buttons.size(); i++) {
-    CRect btnRect(x, y, x + m_buttonWidth, y + m_buttonHeight);
+    // 计算按钮位置
+    CRect btnRect(x, y, x + buttonWidth, y + buttonHeight);
     m_buttons[i].rect = btnRect;
 
-    DrawToolButton(pDC, (int)i, btnRect);
+    // 绘制按钮和标签
+    auto& colors = ColorScheme::Instance();
 
-    y += m_buttonHeight + m_buttonSpacing;
+    UIToolbar::ButtonState state = UIToolbar::ButtonState::Normal;
+    COLORREF bgColor;
+    COLORREF borderColor;
+
+    if (m_buttons[i].isActive) {
+        state = UIToolbar::ButtonState::Active;
+        bgColor = colors.GetColor(ColorScheme::ColorRole::Primary);
+        borderColor = colors.GetColor(ColorScheme::ColorRole::Highlight);
+    }
+    else if (m_buttons[i].isHover) {
+        state = UIToolbar::ButtonState::Hovered;
+        bgColor = colors.GetColor(ColorScheme::ColorRole::PrimaryHover);
+        borderColor = colors.GetColor(ColorScheme::ColorRole::TextPrimary);
+    }
+    else {
+        bgColor = colors.GetColor(ColorScheme::ColorRole::Surface);
+        borderColor = colors.GetColor(ColorScheme::ColorRole::Border);
+    }
+
+    // 提取标签（第一个空格前的部分）
+    CString label = m_buttons[i].tooltip;
+    int spacePos = label.Find(_T(' '));
+    if (spacePos > 0) {
+        label = label.Left(spacePos);
+    }
+
+    // 使用新的带标签按钮绘制
+    UIToolbar::DrawButtonWithLabel(pDC, btnRect, state, 
+                                   m_buttons[i].iconType, label,
+                                   bgColor, borderColor);
+
+    y += buttonHeight + spacing;
   }
 }
 
@@ -134,49 +174,28 @@ void CAcadToolPalette::DrawToolButton(CDC* pDC, int index, const CRect& rect)
   const ToolButton& btn = m_buttons[index];
   auto& colors = ColorScheme::Instance();
 
-  // 背景色
+  // 确定按钮状态和颜色
+  UIToolbar::ButtonState state = UIToolbar::ButtonState::Normal;
   COLORREF bgColor;
+  COLORREF borderColor;
+
   if (btn.isActive) {
-    bgColor = colors.GetColor(ColorScheme::ColorRole::Primary);  // 激活蓝色
+    state = UIToolbar::ButtonState::Active;
+    bgColor = colors.GetColor(ColorScheme::ColorRole::Primary);
+    borderColor = colors.GetColor(ColorScheme::ColorRole::Highlight);
   }
   else if (btn.isHover) {
-    bgColor = colors.GetColor(ColorScheme::ColorRole::PrimaryHover);  // 悬停深蓝色
+    state = UIToolbar::ButtonState::Hovered;
+    bgColor = colors.GetColor(ColorScheme::ColorRole::PrimaryHover);
+    borderColor = colors.GetColor(ColorScheme::ColorRole::TextPrimary);
   }
   else {
-    bgColor = colors.GetColor(ColorScheme::ColorRole::Surface);  // 默认表面色
+    bgColor = colors.GetColor(ColorScheme::ColorRole::Surface);
+    borderColor = colors.GetColor(ColorScheme::ColorRole::Border);
   }
 
-  // 圆角矩形背景 - 优化边框
-  CBrush brush(bgColor);
-  CPen pen(PS_SOLID, 1, btn.isHover ? colors.GetColor(ColorScheme::ColorRole::TextPrimary) : colors.GetColor(ColorScheme::ColorRole::Border));
-  CBrush* pOldBrush = pDC->SelectObject(&brush);
-  CPen* pOldPen = pDC->SelectObject(&pen);
-
-  // 绘制矩形
-  pDC->Rectangle(&rect);
-
-  pDC->SelectObject(pOldBrush);
-  pDC->SelectObject(pOldPen);
-
-  // 图标 - 优化字体和颜色
-  pDC->SetBkMode(TRANSPARENT);
-  pDC->SetTextColor(btn.isActive ? colors.GetColor(ColorScheme::ColorRole::TextPrimary) : colors.GetColor(ColorScheme::ColorRole::TextSecondary));
-  pDC->SelectObject(&m_fontNormal);
-
-  CString iconText;
-  iconText.Format(_T("%c"), btn.iconChar);
-
-  CRect textRect = rect;
-  textRect.DeflateRect(0, 5, 0, 0);
-  pDC->DrawText(iconText, &textRect, DT_CENTER | DT_BOTTOM | DT_SINGLELINE);
-
-  // 边框高亮
-  if (btn.isActive) {
-    CPen highlightPen(PS_SOLID, 2, colors.GetColor(ColorScheme::ColorRole::Highlight));
-    pDC->SelectObject(&highlightPen);
-    pDC->SelectStockObject(NULL_BRUSH);
-    pDC->Rectangle(&rect);
-  }
+  // 仅用于兼容性，实际在 OnDraw 中使用 DrawButtonWithLabel
+  UIToolbar::DrawButton(pDC, rect, state, btn.iconType, bgColor, borderColor);
 }
 
 int CAcadToolPalette::GetButtonAtPoint(CPoint point) const
