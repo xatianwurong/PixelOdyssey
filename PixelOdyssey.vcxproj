@@ -131,7 +131,7 @@
     <ClCompile Include="src\ui\acad\UIToolbar.cpp" />
     <ClCompile Include="src\ui\core\ColorScheme.cpp" />
     <ClCompile Include="src\ui\GLDrawApp.cpp" />
-    <!-- AutoCAD Style UI Components (精简�?- 无图层面�? -->
+    <!-- AutoCAD Style UI Components (精简�?- 无图层面�? -->
     <ClCompile Include="src\ui\acad\AcadUIElement.cpp" />
     <ClCompile Include="src\ui\acad\AcadCommandLine.cpp" />
     <ClCompile Include="src\ui\acad\AcadToolPalette.cpp" />
@@ -193,7 +193,7 @@
     <ClInclude Include="src\ui\acad\UIToolbar.h" />
     <ClInclude Include="src\ui\core\ColorScheme.h" />
     <ClInclude Include="src\ui\GLDrawApp.h" />
-    <!-- AutoCAD Style UI Components (精简�?- 无图层面�? -->
+    <!-- AutoCAD Style UI Components (精简�?- 无图层面�? -->
     <ClInclude Include="src\ui\acad\AcadUIElement.h" />
     <ClInclude Include="src\ui\acad\AcadCommandLine.h" />
     <ClInclude Include="src\ui\acad\AcadToolPalette.h" />
@@ -227,22 +227,6 @@
     <ResourceCompile Include="src\ui\resources\GLDrawApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PHASE2_COMPLETION_CHECKLIST.md" />
-    <None Include="PHASE2_DOCUMENTATION_INDEX.md" />
-    <None Include="PHASE2_EXECUTIVE_SUMMARY.md" />
-    <None Include="PHASE2_KICKOFF_COMPLETION_REPORT.md" />
-    <None Include="PHASE2_KICKOFF_SUMMARY.md" />
-    <None Include="PHASE2_QUICK_SUMMARY.md" />
-    <None Include="PIXELODYSSEY_PROJECT_ROADMAP.md" />
-    <None Include="PROJECT_COMPLETION_SUMMARY.md" />
-    <None Include="QUICK_START.md" />
-    <None Include="README_UI_OPTIMIZATION.md" />
-    <None Include="RENDERING_DOCUMENTATION_INDEX.md" />
-    <None Include="RENDERING_FINAL_DELIVERY_REPORT.md" />
-    <None Include="RENDERING_FINAL_STATUS.md" />
-    <None Include="RENDERING_QUICK_REFERENCE.md" />
-    <None Include="RENDERING_QUICK_START.md" />
-    <None Include="RENDERING_REFACTOR_COMPLETION_SUMMARY.md" />
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\KcCube.shader" />
     <None Include="res\shaders\Shape.shader" />

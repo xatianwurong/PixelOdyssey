@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "interfaces/IRenderable.h"
 #include "interfaces/IRenderContext.h"

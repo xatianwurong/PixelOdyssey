@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file OpenGLDemo.cpp
  * @brief Phase 2 OpenGL 后端演示
  * @details 展示 OpenGL 实现的基本使用方式
@@ -62,20 +62,20 @@ void DemoVertexBuffer() {
         
         VertexBufferGL vb(vertices, sizeof(vertices), BufferUsage::Static);
         
-        std::cout << "✓ VertexBuffer created" << std::endl;
+        std::cout << " VertexBuffer created" << std::endl;
         std::cout << "  - Size: " << vb.GetSize() << " bytes" << std::endl;
         std::cout << "  - Type: " << (int)vb.GetType() << std::endl;
         std::cout << "  - Valid: " << (vb.IsValid() ? "true" : "false") << std::endl;
         
         // 绑定和解绑
         vb.Bind();
-        std::cout << "✓ VertexBuffer bound" << std::endl;
+        std::cout << " VertexBuffer bound" << std::endl;
         
         vb.Unbind();
-        std::cout << "✓ VertexBuffer unbound" << std::endl;
+        std::cout << " VertexBuffer unbound" << std::endl;
     }
     catch (const std::exception& e) {
-        std::cerr << "✗ Error: " << e.what() << std::endl;
+        std::cerr << " Error: " << e.what() << std::endl;
     }
 }
 
@@ -128,18 +128,18 @@ void DemoShader() {
         
         // 设置 Uniform
         shader.SetUniform("time", 0.5f);
-        std::cout << "✓ Set uniform: time" << std::endl;
+        std::cout << " Set uniform: time" << std::endl;
         
         glm::mat4 identity(1.0f);
         shader.SetUniform("view", identity);
         shader.SetUniform("projection", identity);
-        std::cout << "✓ Set uniforms: view, projection" << std::endl;
+        std::cout << " Set uniforms: view, projection" << std::endl;
         
         shader.Unbind();
-        std::cout << "✓ Shader unbound" << std::endl;
+        std::cout << " Shader unbound" << std::endl;
     }
     catch (const std::exception& e) {
-        std::cerr << "✗ Error: " << e.what() << std::endl;
+        std::cerr << " Error: " << e.what() << std::endl;
     }
 }
 
@@ -153,16 +153,16 @@ void DemoRenderManager() {
         auto context = std::make_shared<RenderContext>();
         auto manager = std::make_unique<RenderManager>(context);
         
-        std::cout << "✓ RenderManager created" << std::endl;
+        std::cout << " RenderManager created" << std::endl;
         std::cout << "  - Object count: " << manager->GetObjectCount() << std::endl;
         
         // 更新
         manager->Update(0.016f);
-        std::cout << "✓ Update called" << std::endl;
+        std::cout << " Update called" << std::endl;
         
         // 渲染
         manager->Render();
-        std::cout << "✓ Render called" << std::endl;
+        std::cout << " Render called" << std::endl;
         
         // 获取统计
         auto& stats = manager->GetStats();
@@ -204,7 +204,7 @@ void DemoBenchmark() {
             }
             
             IndexBufferGL ib(indices.data(), indices.size());
-            std::cout << "✓ Created IB with 10000 indices" << std::endl;
+            std::cout << " Created IB with 10000 indices" << std::endl;
         }
         
         // 着色器基准（简单的循环编译）
@@ -213,11 +213,11 @@ void DemoBenchmark() {
                 ShaderGL shader(SIMPLE_VERTEX_SHADER, SIMPLE_FRAGMENT_SHADER);
                 LOG_DEBUG("Benchmark", "Compiled shader " + std::to_string(i + 1));
             }
-            std::cout << "✓ Compiled 5 shader programs" << std::endl;
+            std::cout << " Compiled 5 shader programs" << std::endl;
         }
     }
     catch (const std::exception& e) {
-        std::cerr << "✗ Error: " << e.what() << std::endl;
+        std::cerr << " Error: " << e.what() << std::endl;
     }
 }
 
@@ -230,19 +230,19 @@ void DemoErrorHandling() {
     // 测试 null 指针
     try {
         VertexBufferGL vb(nullptr, 0, BufferUsage::Static);
-        std::cerr << "✗ Should have thrown on null data" << std::endl;
+        std::cerr << " Should have thrown on null data" << std::endl;
     }
     catch (const std::invalid_argument& e) {
-        std::cout << "✓ Correctly caught null data error" << std::endl;
+        std::cout << " Correctly caught null data error" << std::endl;
     }
     
     // 测试无效着色器
     try {
         ShaderGL shader("invalid code", "also invalid");
-        std::cerr << "✗ Should have thrown on invalid shader" << std::endl;
+        std::cerr << " Should have thrown on invalid shader" << std::endl;
     }
     catch (const std::runtime_error& e) {
-        std::cout << "✓ Correctly caught shader compilation error" << std::endl;
+        std::cout << " Correctly caught shader compilation error" << std::endl;
     }
 }
 
@@ -267,7 +267,7 @@ int main() {
     std::cout << "       This build validates compilation and structure only." << std::endl;
     std::cout << "       In a production environment, use with a UI framework (Qt, GLFW, etc.)" << std::endl;
 
-    std::cout << "\n✓ OpenGL Backend classes compiled successfully:" << std::endl;
+    std::cout << "\n OpenGL Backend classes compiled successfully:" << std::endl;
     std::cout << "  - VertexBufferGL" << std::endl;
     std::cout << "  - IndexBufferGL" << std::endl;
     std::cout << "  - ShaderGL" << std::endl;
@@ -275,7 +275,7 @@ int main() {
     std::cout << "  - RenderManager" << std::endl;
     std::cout << "  - RenderContext" << std::endl;
 
-    std::cout << "\n✓ Module validation:" << std::endl;
+    std::cout << "\n Module validation:" << std::endl;
     std::cout << "  - Shader compilation infrastructure: OK" << std::endl;
     std::cout << "  - Buffer management system: OK" << std::endl;
     std::cout << "  - Render context framework: OK" << std::endl;

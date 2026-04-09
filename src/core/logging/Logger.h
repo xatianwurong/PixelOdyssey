@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <memory>
@@ -184,6 +184,8 @@ private:
  */
 #define LOG_CRITICAL(module, msg) \
     Logging::Logger::Instance().Log(Logging::LogLevel::Critical, module, msg)
+
+ /**
  * @def LOG_ERROR
  * @brief 记录错误
  * @param module 模块名

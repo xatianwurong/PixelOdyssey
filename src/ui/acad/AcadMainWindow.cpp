@@ -23,14 +23,12 @@ CAcadMainWindow::CAcadMainWindow()
   , m_bSmoothShading(true)
   , m_bDepthTest(true)
 {
-  
+
 }
 
 CAcadMainWindow::~CAcadMainWindow()
 {
-  
   CleanupOpenGL();
-  
 }
 
 BEGIN_MESSAGE_MAP(CAcadMainWindow, CFrameWnd)
@@ -55,12 +53,10 @@ int CAcadMainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct)
   if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
     return -1;
 
-  //LOG(_T("[AcadMainWindow] OnCreate called"));
-
   // 创建 UI 管理器
   m_pUIManager = &CAcadUIManager::Instance();
-  if (!m_pUIManager->Initialize(this)) {
-    //LOG(_T("[AcadMainWindow] Failed to initialize UI Manager"));
+  if (!m_pUIManager->Initialize(this))
+  {
     return -1;
   }
 
@@ -70,18 +66,15 @@ int CAcadMainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct)
   GetClientRect(&rect);
 
   CRect openGLRect = UILayout::GetOpenGLRect(rect.Width(), rect.Height());
-  if (!m_renderView.Create(_T(""), dwStyle,
-    openGLRect,
-    this, 1001)) {
-    //LOG(_T("[AcadMainWindow] Failed to create OpenGL view"));
+  if (!m_renderView.Create(_T(""), dwStyle, openGLRect, this, 1001))
+  {
     return -1;
   }
 
   m_hWndOpenGL = m_renderView.m_hWnd;
-  //LOG(_T("[AcadMainWindow] OpenGL view created at %dx%d"), openGLRect.Width(), openGLRect.Height());
 
-  if (!InitOpenGL()) {
-    //LOG(_T("[AcadMainWindow] Failed to initialize OpenGL"));
+  if (!InitOpenGL()) 
+  {
     return -1;
   }
 
@@ -101,16 +94,19 @@ void CAcadMainWindow::OnSize(UINT nType, int cx, int cy)
   CFrameWnd::OnSize(nType, cx, cy);
 
   // 使用统一布局管理器调整所有 UI 组件
-  if (m_pUIManager) {
+  if (m_pUIManager) 
+  {
     m_pUIManager->Layout(cx, cy);
   }
 
   // 调整 OpenGL 视图（使用统一布局）
-  if (m_renderView.GetSafeHwnd()) {
+  if (m_renderView.GetSafeHwnd()) 
+  {
     CRect openGLRect = UILayout::GetOpenGLRect(cx, cy);
     m_renderView.MoveWindow(openGLRect);
 
-    if (m_hGLRC) {
+    if (m_hGLRC) 
+    {
       CDC* pDC = CDC::FromHandle(::GetDC(m_hWndOpenGL));
       wglMakeCurrent(pDC->m_hDC, m_hGLRC);
 
@@ -182,7 +178,8 @@ bool CAcadMainWindow::InitOpenGL()
   CDC* pDC = CDC::FromHandle(::GetDC(m_hWndOpenGL));
 
   int nPixelFormat = ::ChoosePixelFormat(pDC->m_hDC, &pfd);
-  if (nPixelFormat == 0) {
+  if (nPixelFormat == 0) 
+  {
     ::ReleaseDC(m_hWndOpenGL, pDC->m_hDC);
     return false;
   }
@@ -190,7 +187,8 @@ bool CAcadMainWindow::InitOpenGL()
   ::SetPixelFormat(pDC->m_hDC, nPixelFormat, &pfd);
 
   m_hGLRC = wglCreateContext(pDC->m_hDC);
-  if (!m_hGLRC) {
+  if (!m_hGLRC) 
+  {
     ::ReleaseDC(m_hWndOpenGL, pDC->m_hDC);
     return false;
   }
@@ -198,7 +196,8 @@ bool CAcadMainWindow::InitOpenGL()
   wglMakeCurrent(pDC->m_hDC, m_hGLRC);
 
   GLenum err = glewInit();
-  if (err != GLEW_OK) {
+  if (err != GLEW_OK) 
+  {
     wglDeleteContext(m_hGLRC);
     ::ReleaseDC(m_hWndOpenGL, pDC->m_hDC);
     return false;
@@ -234,7 +233,8 @@ void CAcadMainWindow::RenderOpenGL()
   glm::mat4 projection = m_camera.GetProjectionMatrix();
 
   // 渲染场景
-  if (m_pSceneManager) {
+  if (m_pSceneManager) 
+  {
     m_pSceneManager->Draw();
   }
 
@@ -267,11 +267,6 @@ void CAcadMainWindow::CreateTestScene()
   // 添加测试图形
   float scale = 0.5f;
 
-  //Rectangle* rect1 = new Rectangle(glm::vec2(-2.0f, 0.0f), 
-  //                                  glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 
-  //                                  scale);
-  //testScene->AddObject(rect1);
-
   Circle* circle = new Circle(glm::vec2(0.0f, 0.0f),
     glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),
     scale);
@@ -287,7 +282,8 @@ void CAcadMainWindow::CreateTestScene()
 
 void CAcadMainWindow::UpdateStatus(const CString& text)
 {
-  if (m_pUIManager) {
+  if (m_pUIManager) 
+  {
     m_pUIManager->GetCommandLine().AppendOutput(text);
   }
 }

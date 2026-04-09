@@ -25,22 +25,24 @@ BOOL CAcadUIManager::Initialize(CWnd* pParent)
   m_commandLine.Create(pParent, 2004,
     UILayout::GetCommandLineRect(rectParent.Width(), rectParent.Height()));
 
-  //LOG(_T("[AcadUIManager] UI components created with unified layout"));
   return TRUE;
 }
 
 void CAcadUIManager::Layout(int width, int height)
 {
   // 使用统一的布局函数调整所有 UI 组件
-  if (m_toolPalette.GetSafeHwnd()) {
+  if (m_toolPalette.GetSafeHwnd()) 
+  {
     m_toolPalette.MoveWindow(UILayout::GetToolRect(width, height));
   }
 
-  if (m_propertyPanel.GetSafeHwnd()) {
+  if (m_propertyPanel.GetSafeHwnd()) 
+  {
     m_propertyPanel.MoveWindow(UILayout::GetPropertyPanelRect(width, height));
   }
 
-  if (m_commandLine.GetSafeHwnd()) {
+  if (m_commandLine.GetSafeHwnd()) 
+  {
     m_commandLine.MoveWindow(UILayout::GetCommandLineRect(width, height));
   }
 }
@@ -48,7 +50,8 @@ void CAcadUIManager::Layout(int width, int height)
 void CAcadUIManager::Update()
 {
   // 更新属性面板（重绘）
-  if (m_propertyPanel.GetSafeHwnd()) {
+  if (m_propertyPanel.GetSafeHwnd()) 
+  {
     m_propertyPanel.Invalidate();
   }
 }

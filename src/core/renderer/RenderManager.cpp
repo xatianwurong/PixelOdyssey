@@ -1,4 +1,4 @@
-#include "RenderManager.h"
+﻿#include "RenderManager.h"
 #include "../logging/Logger.h"
 #include <algorithm>
 #include <chrono>

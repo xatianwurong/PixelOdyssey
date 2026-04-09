@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "interfaces/IRenderContext.h"
 #include <glm/glm.hpp>
