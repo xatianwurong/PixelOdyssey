@@ -1,7 +1,6 @@
-#pragma once
+﻿#pragma once
 
 #include <afxwin.h>
-#include <afxview.h>
 #include "GL/glew.h"
 #include "../../core/renderer/Camera.h"
 #include "../../core/scene/Scene.h"

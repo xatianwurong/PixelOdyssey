@@ -1,7 +1,6 @@
 #pragma once
 
 #include <afxwin.h>
-#include <afxmdi.h>
 #include "document/PixelDocument.h"
 #include "view/PixelView.h"
 #include "acad/AcadUIManager.h"

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <afxwin.h>
-#include <afxmdi.h>
+#include <afxwinappex.h>
 
 class CPixelMainFrame;
 

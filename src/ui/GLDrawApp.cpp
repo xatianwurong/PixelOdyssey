@@ -3,6 +3,7 @@
 #include "childframe/PixelChildFrame.h"
 #include "document/PixelDocument.h"
 #include "view/PixelView.h"
+#include "./../ui/resources/Resource.h"
 
 // The one and only CGLDrawApp object
 CGLDrawApp theApp;
@@ -25,7 +26,6 @@ BOOL CGLDrawApp::InitInstance()
 
   // 启用管理器
   SetRegistryKey(_T("PixelOdyssey"));
-  InitStdioFileSupport();
 
   // 创建多文档模板
   m_pDocTemplate = new CMultiDocTemplate(
@@ -52,13 +52,6 @@ BOOL CGLDrawApp::InitInstance()
 
   m_pMainWnd = m_pMainFrame;
 
-  // 创建第一个子窗口（新建文档）
-  CMDIChildWnd* pMDIChild = (CMDIChildWnd*)m_pDocTemplate->CreateNewFrame(m_pDocTemplate, NULL);
-  if (pMDIChild != NULL)
-  {
-    m_pDocTemplate->InitialUpdateFrame(pMDIChild, NULL);
-  }
-
   // 解析命令行参数
   CCommandLineInfo cmdInfo;
   ParseCommandLine(cmdInfo);
@@ -79,7 +72,7 @@ int CGLDrawApp::ExitInstance()
   // 清理资源
   if (m_pDocTemplate)
   {
-    RemoveDocTemplate(m_pDocTemplate);
+    //RemoveDocTemplate(m_pDocTemplate);
     delete m_pDocTemplate;
     m_pDocTemplate = nullptr;
   }

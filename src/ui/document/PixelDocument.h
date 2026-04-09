@@ -1,7 +1,6 @@
-#pragma once
+﻿#pragma once
 
 #include <afxwin.h>
-#include <afxdoc.h>
 #include "../../core/scene/Scene.h"
 #include <string>
 

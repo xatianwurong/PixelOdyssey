@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../entity/Object.h"
 #include <unordered_map>
 #include <memory>
