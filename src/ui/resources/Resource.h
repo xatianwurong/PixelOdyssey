@@ -36,3 +36,38 @@
 #define IDC_STATIC_LABEL18                1035
 #define IDC_STATIC_LABEL19                1036
 #define IDC_STATIC_LABEL20                1037
+
+// MDI 多文档界面资源 ID
+#define IDR_MAINFRAME                     200    // 主框架窗口资源
+#define IDR_PIXELTYPE                     201    // 文档类型资源
+
+// 菜单命令 ID
+#define ID_FILE_NEW                       32771
+#define ID_FILE_OPEN                      32772
+#define ID_FILE_SAVE                      32773
+#define ID_FILE_SAVE_AS                   32774
+#define ID_FILE_CLOSE                     32775
+#define ID_FILE_EXIT                      32776
+
+#define ID_EDIT_UNDO                      32777
+#define ID_EDIT_REDO                      32778
+#define ID_EDIT_CUT                       32779
+#define ID_EDIT_COPY                      32780
+#define ID_EDIT_PASTE                     32781
+
+#define ID_VIEW_TOOLBAR                   32782
+#define ID_VIEW_STATUSBAR                 32783
+#define ID_VIEW_WINDOWS                   32784
+
+#define ID_WINDOW_NEW                     32785
+#define ID_WINDOW_CASCADE                 32786
+#define ID_WINDOW_TILE_HORZ               32787
+#define ID_WINDOW_TILE_VERT               32788
+#define ID_WINDOW_ARRANGE                 32789
+
+#define ID_HELP_ABOUT                     32790
+
+// 状态栏指示器
+#define ID_INDICATOR_CAPS                 0xE700
+#define ID_INDICATOR_NUM                  0xE701
+#define ID_INDICATOR_SCRL                 0xE702
