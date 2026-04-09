@@ -139,6 +139,11 @@
     <ClCompile Include="src\ui\acad\AcadUIManager.cpp" />
     <ClCompile Include="src\ui\acad\AcadMainWindow.cpp" />
     <ClCompile Include="src\ui\acad\UIComponents.cpp" />
+    <!-- MDI Document/View Architecture -->
+    <ClCompile Include="src\ui\mainframe\PixelMainFrame.cpp" />
+    <ClCompile Include="src\ui\childframe\PixelChildFrame.cpp" />
+    <ClCompile Include="src\ui\document\PixelDocument.cpp" />
+    <ClCompile Include="src\ui\view\PixelView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\entity\Object.h" />
@@ -200,6 +205,11 @@
     <ClInclude Include="src\ui\acad\AcadPropertyPanel.h" />
     <ClInclude Include="src\ui\acad\AcadUIManager.h" />
     <ClInclude Include="src\ui\acad\AcadMainWindow.h" />
+    <!-- MDI Document/View Architecture -->
+    <ClInclude Include="src\ui\mainframe\PixelMainFrame.h" />
+    <ClInclude Include="src\ui\childframe\PixelChildFrame.h" />
+    <ClInclude Include="src\ui\document\PixelDocument.h" />
+    <ClInclude Include="src\ui\view\PixelView.h" />
     <ClInclude Include="src\app\Application.h" />
     <ClInclude Include="src\core\command\Command.h" />
     <ClInclude Include="src\core\command\CommandStack.h" />

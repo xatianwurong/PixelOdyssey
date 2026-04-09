@@ -257,18 +257,14 @@ void CPixelView::CreateTestSceneIfEmpty()
   ASSERT_VALID(pDoc);
 
   Scene* pScene = pDoc->GetScene();
-  if (!pScene || pScene->GetName().empty())
+  if (!pScene)
   {
-    // 文档没有有效场景，创建测试场景
-    if (pScene)
-    {
-      delete pScene;
-    }
-
+    // 文档没有场景，创建测试场景
     pScene = new Scene("MainScene");
-    // 注意：这里需要更新文档中的场景指针
-    // 由于文档类设计限制，这里仅作演示
-
+    
+    // 更新文档中的场景指针
+    // 注意：需要访问文档的内部成员，这里通过 OnNewDocument 已创建的场景来使用
+    
     // 添加测试图形
     float scale = 0.5f;
 
@@ -281,5 +277,15 @@ void CPixelView::CreateTestSceneIfEmpty()
       glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
       scale);
     pScene->AddObject(triangle);
+    
+    Square* square = new Square(glm::vec2(-2.0f, 0.0f),
+      glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+      scale);
+    pScene->AddObject(square);
+    
+    Rectangle* rect = new Rectangle(glm::vec2(0.0f, -2.0f),
+      glm::vec4(1.0f, 1.0f, 0.0f, 1.0f),
+      scale * 1.5f, scale);
+    pScene->AddObject(rect);
   }
 }

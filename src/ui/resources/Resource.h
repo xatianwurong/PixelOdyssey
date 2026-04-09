@@ -41,31 +41,31 @@
 #define IDR_MAINFRAME                     200    // 主框架窗口资源
 #define IDR_PIXELTYPE                     201    // 文档类型资源
 
-// 菜单命令 ID
-#define ID_FILE_NEW                       32771
-#define ID_FILE_OPEN                      32772
-#define ID_FILE_SAVE                      32773
-#define ID_FILE_SAVE_AS                   32774
-#define ID_FILE_CLOSE                     32775
-#define ID_FILE_EXIT                      32776
+// 菜单命令 ID - 使用自定义值避免与 MFC 标准 ID 冲突
+#define ID_FILE_NEW                       32800
+#define ID_FILE_OPEN                      32801
+#define ID_FILE_SAVE                      32802
+#define ID_FILE_SAVE_AS                   32803
+#define ID_FILE_CLOSE                     32804
+#define ID_FILE_EXIT                      32805
 
-#define ID_EDIT_UNDO                      32777
-#define ID_EDIT_REDO                      32778
-#define ID_EDIT_CUT                       32779
-#define ID_EDIT_COPY                      32780
-#define ID_EDIT_PASTE                     32781
+#define ID_EDIT_UNDO                      32810
+#define ID_EDIT_REDO                      32811
+#define ID_EDIT_CUT                       32812
+#define ID_EDIT_COPY                      32813
+#define ID_EDIT_PASTE                     32814
 
-#define ID_VIEW_TOOLBAR                   32782
-#define ID_VIEW_STATUSBAR                 32783
-#define ID_VIEW_WINDOWS                   32784
+#define ID_VIEW_TOOLBAR                   32820
+#define ID_VIEW_STATUSBAR                 32821
+#define ID_VIEW_WINDOWS                   32822
 
-#define ID_WINDOW_NEW                     32785
-#define ID_WINDOW_CASCADE                 32786
-#define ID_WINDOW_TILE_HORZ               32787
-#define ID_WINDOW_TILE_VERT               32788
-#define ID_WINDOW_ARRANGE                 32789
+#define ID_WINDOW_NEW                     32830
+#define ID_WINDOW_CASCADE                 32831
+#define ID_WINDOW_TILE_HORZ               32832
+#define ID_WINDOW_TILE_VERT               32833
+#define ID_WINDOW_ARRANGE                 32834
 
-#define ID_HELP_ABOUT                     32790
+#define ID_HELP_ABOUT                     32840
 
 // 状态栏指示器
 #define ID_INDICATOR_CAPS                 0xE700
