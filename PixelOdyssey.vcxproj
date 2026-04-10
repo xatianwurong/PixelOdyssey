@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -128,17 +128,13 @@
     <ClCompile Include="src\core\scene\SceneManager.cpp" />
     <ClCompile Include="src\core\utils\Utility.cpp" />
     <ClCompile Include="src\core\utils\PerformanceMonitor.cpp" />
-    <ClCompile Include="src\ui\acad\UIToolbar.cpp" />
     <ClCompile Include="src\ui\core\ColorScheme.cpp" />
     <ClCompile Include="src\ui\GLDrawApp.cpp" />
-    <!-- AutoCAD Style UI Components (精简�?- 无图层面�? -->
-    <ClCompile Include="src\ui\acad\AcadUIElement.cpp" />
-    <ClCompile Include="src\ui\acad\AcadCommandLine.cpp" />
-    <ClCompile Include="src\ui\acad\AcadToolPalette.cpp" />
-    <ClCompile Include="src\ui\acad\AcadPropertyPanel.cpp" />
-    <ClCompile Include="src\ui\acad\AcadUIManager.cpp" />
-    <ClCompile Include="src\ui\acad\AcadMainWindow.cpp" />
-    <ClCompile Include="src\ui\acad\UIComponents.cpp" />
+    <!-- AutoCAD Style UI Components (绮剧畝锟?- 鏃犲浘灞傞潰锟? -->
+    <ClCompile Include="src\ui\document\PixelDocument.cpp" xmlns="" />
+    <ClCompile Include="src\ui\view\PixelView.cpp" xmlns="" />
+    <ClCompile Include="src\ui\childframe\PixelChildFrame.cpp" xmlns="" />
+    <ClCompile Include="src\ui\mainframe\PixelMainFrame.cpp" xmlns="" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\entity\Object.h" />
@@ -186,20 +182,9 @@
     <ClInclude Include="src\core\scene\SceneManager.h" />
     <ClInclude Include="src\core\utils\Utility.h" />
     <ClInclude Include="src\core\utils\PerformanceMonitor.h" />
-    <ClInclude Include="src\ui\acad\UICommon.h" />
-    <ClInclude Include="src\ui\acad\UIComponents.h" />
-    <ClInclude Include="src\ui\acad\UIDesignSystem.h" />
-    <ClInclude Include="src\ui\acad\UILayout.h" />
-    <ClInclude Include="src\ui\acad\UIToolbar.h" />
     <ClInclude Include="src\ui\core\ColorScheme.h" />
     <ClInclude Include="src\ui\GLDrawApp.h" />
-    <!-- AutoCAD Style UI Components (精简�?- 无图层面�? -->
-    <ClInclude Include="src\ui\acad\AcadUIElement.h" />
-    <ClInclude Include="src\ui\acad\AcadCommandLine.h" />
-    <ClInclude Include="src\ui\acad\AcadToolPalette.h" />
-    <ClInclude Include="src\ui\acad\AcadPropertyPanel.h" />
-    <ClInclude Include="src\ui\acad\AcadUIManager.h" />
-    <ClInclude Include="src\ui\acad\AcadMainWindow.h" />
+    <!-- AutoCAD Style UI Components (绮剧畝锟?- 鏃犲浘灞傞潰锟? -->
     <ClInclude Include="src\app\Application.h" />
     <ClInclude Include="src\core\command\Command.h" />
     <ClInclude Include="src\core\command\CommandStack.h" />
@@ -222,6 +207,10 @@
     <ClInclude Include="src\tools\Tool.h" />
     <ClInclude Include="src\ui\resources\Resource.h" />
     <ClInclude Include="src\ui\utils\OpenGLLogger.h" />
+    <ClInclude Include="src\ui\document\PixelDocument.h" xmlns="" />
+    <ClInclude Include="src\ui\view\PixelView.h" xmlns="" />
+    <ClInclude Include="src\ui\childframe\PixelChildFrame.h" xmlns="" />
+    <ClInclude Include="src\ui\mainframe\PixelMainFrame.h" xmlns="" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\ui\resources\GLDrawApp.rc" />

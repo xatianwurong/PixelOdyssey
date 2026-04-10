@@ -1,9 +1,8 @@
 ﻿#pragma once
 
 #include <afxwin.h>
-#include "document/PixelDocument.h"
-#include "view/PixelView.h"
-#include "childframe/PixelChildFrame.h"
+#include <afxext.h>
+#include <afxdialogex.h>
 
 /**
  * @brief MDI 主框架窗口类
@@ -17,6 +16,8 @@ class CPixelMainFrame : public CMDIFrameWnd
 public:
   CPixelMainFrame();
   virtual ~CPixelMainFrame();
+
+  virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 
 #ifdef _DEBUG
   virtual void AssertValid() const;

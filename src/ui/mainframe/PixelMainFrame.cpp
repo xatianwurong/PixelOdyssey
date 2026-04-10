@@ -1,5 +1,5 @@
 #include "PixelMainFrame.h"
-#include "../acad/UILayout.h"
+#include "../resources/Resource.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -18,6 +18,25 @@ CPixelMainFrame::CPixelMainFrame()
 
 CPixelMainFrame::~CPixelMainFrame()
 {
+}
+
+BOOL CPixelMainFrame::PreCreateWindow(CREATESTRUCT& cs)
+{
+  if (!CMDIFrameWnd::PreCreateWindow(cs))
+    return FALSE;
+
+  // 设置窗口样式和位置
+  cs.style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | 
+             WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
+
+  // 设置初始窗口大小
+  cs.cx = 1400;
+  cs.cy = 900;
+
+  // 允许子窗口重叠
+  cs.style |= WS_CLIPCHILDREN;
+
+  return TRUE;
 }
 
 #ifdef _DEBUG

@@ -1,5 +1,5 @@
-#include "PixelView.h"
-#include "PixelDocument.h"
+﻿#include "PixelView.h"
+#include "../document/PixelDocument.h"
 #include <GL/glew.h>
 #include <afxdialogex.h>
 #include <time.h>
@@ -7,7 +7,9 @@
 #include "../../core/entity/Rectangle.h"
 #include "../../core/entity/Square.h"
 #include "../../core/entity/Triangle.h"
-#include "../acad/UILayout.h"
+#include "../../core/renderer/Camera.h"
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -58,8 +60,22 @@ void CPixelView::Dump(CDumpContext& dc) const
 Scene* CPixelView::GetScene()
 {
   CPixelDocument* pDoc = GetDocument();
-  ASSERT_VALID(pDoc);
+  if (pDoc == nullptr)
+    return nullptr;
   return pDoc->GetScene();
+}
+
+CPixelDocument* CPixelView::GetDocument() const
+{
+  // 使用safe cast
+  CDocument* pDoc = CView::GetDocument();
+  return DYNAMIC_DOWNCAST(CPixelDocument, pDoc);
+}
+
+void CPixelView::OnDraw(CDC* pDC)
+{
+  // OpenGL 渲染在 OnTimer 中进行，这里无需做任何操作
+  // 仅由 RenderOpenGL 处理
 }
 
 int CPixelView::OnCreate(LPCREATESTRUCT lpCreateStruct)

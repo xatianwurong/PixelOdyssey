@@ -35,18 +35,26 @@ BOOL CGLDrawApp::InitInstance()
     RUNTIME_CLASS(CPixelView));
 
   if (!m_pDocTemplate)
+  {
+    TRACE(_T("ERROR: Failed to create document template\n"));
     return FALSE;
+  }
 
   AddDocTemplate(m_pDocTemplate);
 
   // 创建 MDI 主框架窗口
   m_pMainFrame = new CPixelMainFrame();
   if (!m_pMainFrame)
+  {
+    TRACE(_T("ERROR: Failed to allocate CPixelMainFrame\n"));
     return FALSE;
+  }
 
   if (!m_pMainFrame->LoadFrame(IDR_MAINFRAME))
   {
+    TRACE(_T("ERROR: Failed to load frame resources (IDR_MAINFRAME=%d)\n"), IDR_MAINFRAME);
     delete m_pMainFrame;
+    m_pMainFrame = nullptr;
     return FALSE;
   }
 
@@ -56,9 +64,23 @@ BOOL CGLDrawApp::InitInstance()
   CCommandLineInfo cmdInfo;
   ParseCommandLine(cmdInfo);
 
-  // 根据命令行执行操作
-  if (!ProcessShellCommand(cmdInfo))
-    return FALSE;
+  // 处理命令行
+  if (cmdInfo.m_nShellCommand == CCommandLineInfo::FileNew ||
+      cmdInfo.m_nShellCommand == CCommandLineInfo::FileNothing)
+  {
+    // 没有指定文件时创建新文档
+    OnFileNew();
+  }
+  else
+  {
+    // 尝试打开指定的文件
+    if (!ProcessShellCommand(cmdInfo))
+    {
+      TRACE(_T("WARNING: ProcessShellCommand failed\n"));
+      // 不返回FALSE，继续用空文档运行
+      OnFileNew();
+    }
+  }
 
   // 主窗口已初始化，显示并更新
   m_pMainWnd->ShowWindow(SW_SHOW);

@@ -1,47 +1,137 @@
 #include "Resource.h"
 #include "afxres.h"
 
+// 文档模板字符串资源 - 必需！
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME       "PixelOdyssey"
+    IDR_PIXELTYPE       "Pixel Document\nPixel\nPixel Files (*.pix)\n.pix\nPixelOdyssey.Document\nPixel Document"
+END
+
 // MDI 主框架窗口菜单定义
 IDR_MAINFRAME MENU
 BEGIN
-POPUP "&File"
-BEGIN
-MENUITEM "&New\tCtrl+N", ID_FILE_NEW
-MENUITEM "&Open...\tCtrl+O", ID_FILE_OPEN
-MENUITEM "&Save\tCtrl+S", ID_FILE_SAVE
-MENUITEM "Save &As...", ID_FILE_SAVE_AS
-MENUITEM SEPARATOR
-MENUITEM "&Close", ID_FILE_CLOSE
-MENUITEM SEPARATOR
-MENUITEM "E&xit", ID_FILE_EXIT
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N", ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O", ID_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S", ID_FILE_SAVE
+        MENUITEM "Save &As...", ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Close", ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit", ID_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z", ID_EDIT_UNDO
+        MENUITEM "&Redo\tCtrl+Y", ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X", ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C", ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V", ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar", ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar", ID_VIEW_STATUSBAR
+        MENUITEM SEPARATOR
+        MENUITEM "&Windows", ID_VIEW_WINDOWS
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&New Window", ID_WINDOW_NEW
+        MENUITEM SEPARATOR
+        MENUITEM "&Cascade", ID_WINDOW_CASCADE
+        MENUITEM "Tile &Horizontally", ID_WINDOW_TILE_HORZ
+        MENUITEM "Tile &Vertically", ID_WINDOW_TILE_VERT
+        MENUITEM "&Arrange Icons", ID_WINDOW_ARRANGE
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About...", ID_HELP_ABOUT
+    END
 END
-POPUP "&Edit"
+
+// 主框架工具栏
+IDR_MAINFRAME TOOLBAR 16, 16
 BEGIN
-MENUITEM "&Undo\tCtrl+Z", ID_EDIT_UNDO
-MENUITEM "&Redo\tCtrl+Y", ID_EDIT_REDO
-MENUITEM SEPARATOR
-MENUITEM "Cu&t\tCtrl+X", ID_EDIT_CUT
-MENUITEM "&Copy\tCtrl+C", ID_EDIT_COPY
-MENUITEM "&Paste\tCtrl+V", ID_EDIT_PASTE
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_HELP_ABOUT
 END
-POPUP "&View"
+
+// 文档类型资源 (MDI doc-view)
+IDR_PIXELTYPE MENU
 BEGIN
-MENUITEM "&Toolbar", ID_VIEW_TOOLBAR
-MENUITEM "&Status Bar", ID_VIEW_STATUSBAR
-MENUITEM SEPARATOR
-MENUITEM "&Windows", ID_VIEW_WINDOWS
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N", ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O", ID_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S", ID_FILE_SAVE
+        MENUITEM "Save &As...", ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Close", ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit", ID_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z", ID_EDIT_UNDO
+        MENUITEM "&Redo\tCtrl+Y", ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X", ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C", ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V", ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar", ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar", ID_VIEW_STATUSBAR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About...", ID_HELP_ABOUT
+    END
 END
-POPUP "&Window"
+
+IDR_PIXELTYPE TOOLBAR 16, 16
 BEGIN
-MENUITEM "&New Window", ID_WINDOW_NEW
-MENUITEM SEPARATOR
-MENUITEM "&Cascade", ID_WINDOW_CASCADE
-MENUITEM "Tile &Horizontally", ID_WINDOW_TILE_HORZ
-MENUITEM "Tile &Vertically", ID_WINDOW_TILE_VERT
-MENUITEM "&Arrange Icons", ID_WINDOW_ARRANGE
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
 END
-POPUP "&Help"
+
+// 字符串资源
+STRINGTABLE
 BEGIN
-MENUITEM "&About...", ID_HELP_ABOUT
-END
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_EXIT            "Exit the application\nExit"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the last undone action\nRedo"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle Toolbar"
+    ID_VIEW_STATUSBAR       "Show or hide the status bar\nToggle Status Bar"
+    ID_WINDOW_NEW           "Create a new window for the active document\nNew Window"
+    ID_WINDOW_CASCADE       "Arrange windows in a cascade\nCascade"
+    ID_WINDOW_TILE_HORZ     "Arrange windows in horizontal tiles\nTile Horizontal"
+    ID_WINDOW_TILE_VERT     "Arrange windows in vertical tiles\nTile Vertical"
+    ID_WINDOW_ARRANGE       "Arrange window icons at the bottom\nArrange Icons"
+    ID_HELP_ABOUT           "Display the About dialog\nAbout PixelOdyssey"
 END

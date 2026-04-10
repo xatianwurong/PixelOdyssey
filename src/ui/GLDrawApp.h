@@ -3,6 +3,7 @@
 #include <afxwin.h>
 #include <afxwinappex.h>
 
+// Forward declarations
 class CPixelMainFrame;
 
 /**

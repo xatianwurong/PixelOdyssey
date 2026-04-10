@@ -1,14 +1,13 @@
-#pragma once
+﻿#pragma once
 
 #include <afxwin.h>
-#include "document/PixelDocument.h"
-#include "view/PixelView.h"
-#include "acad/AcadUIManager.h"
+#include <afxext.h>
+#include <afxdialogex.h>
 
 /**
  * @brief MDI 子框架窗口类
- * @details 继承自 CMDIChildWnd，管理每个文档的视图和 UI 组件
- *          每个子窗口包含一个独立的绘图场景和相关的 UI 面板
+ * @details 继承自 CMDIChildWnd，管理每个文档的视图
+ *          每个子窗口包含一个独立的绘图场景视图
  */
 class CPixelChildFrame : public CMDIChildWnd
 {
@@ -18,6 +17,8 @@ public:
   CPixelChildFrame();
   virtual ~CPixelChildFrame();
 
+  virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+
 #ifdef _DEBUG
   virtual void AssertValid() const;
 #ifndef _WIN32_WCE
@@ -25,31 +26,10 @@ public:
 #endif
 #endif
 
-  // 获取 UI 管理器
-  CAcadUIManager* GetUIManager() { return m_pUIManager; }
-
 protected:
   DECLARE_MESSAGE_MAP()
 
   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-  afx_msg void OnSize(UINT nType, int cx, int cy);
   afx_msg void OnDestroy();
-
-private:
-  CAcadUIManager* m_pUIManager;  ///< UI 管理器指针
-  
-  // UI 组件句柄
-  CWnd m_wndToolPalette;      ///< 工具面板
-  CWnd m_wndPropertyPanel;    ///< 属性面板
-  CWnd m_wndCommandLine;      ///< 命令行
-
-  /**
-   * @brief 创建 UI 组件
-   */
-  BOOL CreateUIComponents();
-
-  /**
-   * @brief 调整 UI 布局
-   */
-  void LayoutUI(int width, int height);
 };
+

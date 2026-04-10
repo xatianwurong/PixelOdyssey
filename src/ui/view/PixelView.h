@@ -1,9 +1,13 @@
 ﻿#pragma once
 
 #include <afxwin.h>
+#include <afxext.h>
 #include "GL/glew.h"
 #include "../../core/renderer/Camera.h"
 #include "../../core/scene/Scene.h"
+
+// Forward declaration
+class CPixelDocument;
 
 /**
  * @brief OpenGL 渲染视图类
@@ -28,8 +32,14 @@ public:
   // 获取关联的场景
   Scene* GetScene();
 
+  // 获取文档（重载）
+  CPixelDocument* GetDocument() const;
+
 protected:
   DECLARE_MESSAGE_MAP()
+
+  // 纯虚函数实现 (CView 要求)
+  virtual void OnDraw(CDC* pDC);
 
   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg void OnSize(UINT nType, int cx, int cy);

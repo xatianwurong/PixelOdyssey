@@ -1,4 +1,4 @@
-#include "ShaderCompiler.h"
+﻿#include "ShaderCompiler.h"
 #include "core/logging/Logger.h"
 #include <stdexcept>
 #include <sstream>

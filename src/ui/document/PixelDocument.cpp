@@ -1,5 +1,4 @@
-#include "PixelDocument.h"
-#include <afxdoc.h>
+﻿#include "PixelDocument.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -41,13 +40,26 @@ BOOL CPixelDocument::OnNewDocument()
   if (!CDocument::OnNewDocument())
     return FALSE;
 
-  // 创建新场景
-  DeleteContents();
-  m_pScene = new Scene("Scene");
-  m_strTitle = _T("Untitled");
-  m_strFilePath = _T("");
+  try
+  {
+    // 删除旧内容
+    DeleteContents();
 
-  return TRUE;
+    // 创建新场景
+    m_pScene = new Scene("Untitled");
+    m_strTitle = _T("Untitled");
+    m_strFilePath = _T("");
+
+    // 设置未修改标记
+    SetModifiedFlag(FALSE);
+
+    return TRUE;
+  }
+  catch (...)
+  {
+    DeleteContents();
+    return FALSE;
+  }
 }
 
 void CPixelDocument::DeleteContents()

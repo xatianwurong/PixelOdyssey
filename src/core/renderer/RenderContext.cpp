@@ -1,4 +1,4 @@
-#include "RenderContext.h"
+﻿#include "RenderContext.h"
 #include "../logging/Logger.h"
 #include "interfaces/IBuffer.h"
 #include "interfaces/IShader.h"
