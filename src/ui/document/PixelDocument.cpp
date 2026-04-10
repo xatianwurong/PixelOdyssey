@@ -76,7 +76,7 @@ void CPixelDocument::DeleteContents()
   CDocument::DeleteContents();
 }
 
-BOOL CPixelDocument::SaveDocument(LPCTSTR lpszPathName)
+BOOL CPixelDocument::OnSaveDocument(LPCTSTR lpszPathName)
 {
   // TODO: 实现文档保存逻辑
   // 这里可以序列化场景数据到文件
@@ -96,8 +96,11 @@ BOOL CPixelDocument::SaveDocument(LPCTSTR lpszPathName)
   return TRUE;
 }
 
-BOOL CPixelDocument::LoadDocument(LPCTSTR lpszPathName)
+BOOL CPixelDocument::OnOpenDocument(LPCTSTR lpszPathName)
 {
+  if (!CDocument::OnOpenDocument(lpszPathName))
+    return FALSE;
+
   // TODO: 实现文档加载逻辑
   // 这里可以从文件反序列化场景数据
   
@@ -134,6 +137,17 @@ void CPixelDocument::SetDocumentTitle(const CString& title)
       }
     }
   }
+}
+
+void CPixelDocument::SetScene(Scene* pScene)
+{
+  if (m_pScene == pScene)
+  {
+    return;
+  }
+
+  delete m_pScene;
+  m_pScene = pScene;
 }
 
 void CPixelDocument::SetModifiedFlag(BOOL bModified)

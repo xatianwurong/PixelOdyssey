@@ -7,9 +7,9 @@
 class CPixelMainFrame;
 
 /**
- * @brief MFC 应用程序类 - 支持 MDI 多文档界面
- * @details 应用程序的入口点，负责初始化应用程序和创建 MDI 主窗口
- * @details 继承自 CWinAppEx，提供现代化的 MDI 界面支持
+ * @brief MFC 应用程序类 - 单文档界面
+ * @details 应用程序的入口点，负责初始化应用程序和创建 SDI 主窗口
+ * @details 继承自 CWinAppEx，提供现代化的单文档界面支持
  */
 class CGLDrawApp : public CWinAppEx
 {
@@ -36,9 +36,8 @@ public:
   DECLARE_MESSAGE_MAP()
 
 private:
-  // MDI 相关成员
-  CMultiDocTemplate* m_pDocTemplate;  ///< 多文档模板
-  CPixelMainFrame* m_pMainFrame;       ///< MDI 主框架窗口
+  CSingleDocTemplate* m_pDocTemplate;  ///< 单文档模板
+  CPixelMainFrame* m_pMainFrame;       ///< 主框架窗口
 };
 
 extern CGLDrawApp theApp;  ///< 全局应用程序实例

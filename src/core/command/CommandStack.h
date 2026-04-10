@@ -203,13 +203,3 @@ private:
   std::function<void()> m_onCommandUndone;    ///< 命令撤销回调
   std::function<void()> m_onCommandRedone;    ///< 命令重做回调
 };
-    CommandStack(const CommandStack&) = delete;
-    CommandStack& operator=(const CommandStack&) = delete;
-    
-    std::vector<std::unique_ptr<Command>> m_undoStack;
-    std::vector<std::unique_ptr<Command>> m_redoStack;
-    
-    std::function<void()> m_onCommandExecuted;
-    std::function<void()> m_onCommandUndone;
-    std::function<void()> m_onCommandRedone;
-};

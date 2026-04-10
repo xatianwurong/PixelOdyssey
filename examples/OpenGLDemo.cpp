@@ -94,19 +94,19 @@ void DemoIndexBuffer() {
         
         IndexBufferGL ib(indices, 6);
         
-        std::cout << "✓ IndexBuffer created" << std::endl;
+        std::cout << " IndexBuffer created" << std::endl;
         std::cout << "  - Count: " << ib.GetIndexCount() << std::endl;
         std::cout << "  - Size: " << ib.GetSize() << " bytes" << std::endl;
         std::cout << "  - Valid: " << (ib.IsValid() ? "true" : "false") << std::endl;
         
         ib.Bind();
-        std::cout << "✓ IndexBuffer bound" << std::endl;
+        std::cout << " IndexBuffer bound" << std::endl;
         
         ib.Unbind();
-        std::cout << "✓ IndexBuffer unbound" << std::endl;
+        std::cout << " IndexBuffer unbound" << std::endl;
     }
     catch (const std::exception& e) {
-        std::cerr << "✗ Error: " << e.what() << std::endl;
+        std::cerr << " Error: " << e.what() << std::endl;
     }
 }
 
@@ -119,12 +119,12 @@ void DemoShader() {
     try {
         ShaderGL shader(SIMPLE_VERTEX_SHADER, SIMPLE_FRAGMENT_SHADER);
         
-        std::cout << "✓ Shader program created" << std::endl;
+        std::cout << " Shader program created" << std::endl;
         std::cout << "  - Program ID: " << shader.GetProgramID() << std::endl;
         std::cout << "  - Valid: " << (shader.IsValid() ? "true" : "false") << std::endl;
         
         shader.Bind();
-        std::cout << "✓ Shader bound" << std::endl;
+        std::cout << " Shader bound" << std::endl;
         
         // 设置 Uniform
         shader.SetUniform("time", 0.5f);
@@ -166,12 +166,12 @@ void DemoRenderManager() {
         
         // 获取统计
         auto& stats = manager->GetStats();
-        std::cout << "✓ Statistics:" << std::endl;
+        std::cout << " Statistics:" << std::endl;
         std::cout << "  - Total objects: " << stats.totalObjectCount << std::endl;
         std::cout << "  - Visible objects: " << stats.visibleObjectCount << std::endl;
     }
     catch (const std::exception& e) {
-        std::cerr << "✗ Error: " << e.what() << std::endl;
+        std::cerr << " Error: " << e.what() << std::endl;
     }
 }
 
@@ -193,7 +193,7 @@ void DemoBenchmark() {
             
             VertexBufferGL vb(vertices.data(), vertices.size() * sizeof(float), 
                             BufferUsage::Static);
-            std::cout << "✓ Created VB with 10000 vertices" << std::endl;
+            std::cout << " Created VB with 10000 vertices" << std::endl;
         }
         
         // 索引缓冲区基准

@@ -5,13 +5,13 @@
 #include <afxdialogex.h>
 
 /**
- * @brief MDI 主框架窗口类
- * @details 继承自 CMDIFrameWnd，管理整个应用程序的 MDI 界面
- *          包含菜单栏、工具栏和状态栏
+ * @brief 主框架窗口类
+ * @details 继承自 CFrameWnd，管理整个应用程序的 SDI 界面
+ *          包含菜单栏和状态栏
  */
-class CPixelMainFrame : public CMDIFrameWnd
+class CPixelMainFrame : public CFrameWnd
 {
-  DECLARE_DYNAMIC(CPixelMainFrame)
+  DECLARE_DYNCREATE(CPixelMainFrame)
 
 public:
   CPixelMainFrame();
@@ -31,14 +31,4 @@ protected:
 
   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg void OnClose();
-
-private:
-  // UI 组件
-  CToolBar m_wndToolBar;      ///< 工具栏
-  CStatusBar m_wndStatusBar;  ///< 状态栏
-
-  /**
-   * @brief 创建工具栏和状态栏
-   */
-  BOOL CreateBars();
 };

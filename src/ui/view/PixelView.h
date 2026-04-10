@@ -51,6 +51,7 @@ protected:
 private:
   // OpenGL 上下文
   HGLRC m_hGLRC;
+  HDC m_hOpenGLDC;
   HWND m_hWndOpenGL;
   CStatic m_renderView;
 

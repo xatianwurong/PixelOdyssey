@@ -28,6 +28,7 @@ END_MESSAGE_MAP()
 
 CPixelView::CPixelView()
   : m_hGLRC(nullptr)
+  , m_hOpenGLDC(nullptr)
   , m_hWndOpenGL(nullptr)
   , m_bIsRunning(false)
   , m_fDeltaTime(0.0f)
@@ -121,8 +122,7 @@ void CPixelView::OnSize(UINT nType, int cx, int cy)
 
     if (m_hGLRC)
     {
-      CDC* pDC = CDC::FromHandle(::GetDC(m_hWndOpenGL));
-      wglMakeCurrent(pDC->m_hDC, m_hGLRC);
+      wglMakeCurrent(m_hOpenGLDC, m_hGLRC);
 
       // 更新视口
       glViewport(0, 0, cx, cy);
@@ -130,7 +130,7 @@ void CPixelView::OnSize(UINT nType, int cx, int cy)
       // 更新投影矩阵
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
-      GLfloat aspect = (GLfloat)cx / (GLfloat)cy;
+      GLfloat aspect = (cy > 0) ? (GLfloat)cx / (GLfloat)cy : 1.0f;
       gluPerspective(45.0f, aspect, 0.1f, 100.0f);
       glMatrixMode(GL_MODELVIEW);
 

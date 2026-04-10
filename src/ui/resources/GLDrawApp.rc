@@ -1,14 +1,13 @@
 #include "Resource.h"
 #include "afxres.h"
 
-// 文档模板字符串资源 - 必需！
 STRINGTABLE
 BEGIN
     IDR_MAINFRAME       "PixelOdyssey"
     IDR_PIXELTYPE       "Pixel Document\nPixel\nPixel Files (*.pix)\n.pix\nPixelOdyssey.Document\nPixel Document"
 END
 
-// MDI 主框架窗口菜单定义
+// SDI main frame menu
 IDR_MAINFRAME MENU
 BEGIN
     POPUP "&File"
@@ -33,19 +32,7 @@ BEGIN
     END
     POPUP "&View"
     BEGIN
-        MENUITEM "&Toolbar", ID_VIEW_TOOLBAR
         MENUITEM "&Status Bar", ID_VIEW_STATUSBAR
-        MENUITEM SEPARATOR
-        MENUITEM "&Windows", ID_VIEW_WINDOWS
-    END
-    POPUP "&Window"
-    BEGIN
-        MENUITEM "&New Window", ID_WINDOW_NEW
-        MENUITEM SEPARATOR
-        MENUITEM "&Cascade", ID_WINDOW_CASCADE
-        MENUITEM "Tile &Horizontally", ID_WINDOW_TILE_HORZ
-        MENUITEM "Tile &Vertically", ID_WINDOW_TILE_VERT
-        MENUITEM "&Arrange Icons", ID_WINDOW_ARRANGE
     END
     POPUP "&Help"
     BEGIN
@@ -53,7 +40,6 @@ BEGIN
     END
 END
 
-// 主框架工具栏
 IDR_MAINFRAME TOOLBAR 16, 16
 BEGIN
     BUTTON      ID_FILE_NEW
@@ -67,7 +53,7 @@ BEGIN
     BUTTON      ID_HELP_ABOUT
 END
 
-// 文档类型资源 (MDI doc-view)
+// Compatibility doc resource kept for now
 IDR_PIXELTYPE MENU
 BEGIN
     POPUP "&File"
@@ -92,7 +78,6 @@ BEGIN
     END
     POPUP "&View"
     BEGIN
-        MENUITEM "&Toolbar", ID_VIEW_TOOLBAR
         MENUITEM "&Status Bar", ID_VIEW_STATUSBAR
     END
     POPUP "&Help"
@@ -112,7 +97,6 @@ BEGIN
     BUTTON      ID_EDIT_PASTE
 END
 
-// 字符串资源
 STRINGTABLE
 BEGIN
     ID_FILE_NEW             "Create a new document\nNew"
@@ -126,12 +110,6 @@ BEGIN
     ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
     ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
     ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
-    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle Toolbar"
     ID_VIEW_STATUSBAR       "Show or hide the status bar\nToggle Status Bar"
-    ID_WINDOW_NEW           "Create a new window for the active document\nNew Window"
-    ID_WINDOW_CASCADE       "Arrange windows in a cascade\nCascade"
-    ID_WINDOW_TILE_HORZ     "Arrange windows in horizontal tiles\nTile Horizontal"
-    ID_WINDOW_TILE_VERT     "Arrange windows in vertical tiles\nTile Vertical"
-    ID_WINDOW_ARRANGE       "Arrange window icons at the bottom\nArrange Icons"
     ID_HELP_ABOUT           "Display the About dialog\nAbout PixelOdyssey"
 END

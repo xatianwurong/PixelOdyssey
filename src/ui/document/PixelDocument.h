@@ -27,8 +27,8 @@ public:
   // 文档操作
   virtual BOOL OnNewDocument();
   virtual void DeleteContents();
-  virtual BOOL SaveDocument(LPCTSTR lpszPathName);
-  virtual BOOL LoadDocument(LPCTSTR lpszPathName);
+  virtual BOOL OnSaveDocument(LPCTSTR lpszPathName);
+  virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
 
   // 场景访问
   Scene* GetScene() { return m_pScene; }
@@ -36,6 +36,7 @@ public:
 
   // 文档信息
   void SetDocumentTitle(const CString& title);
+  void SetScene(Scene* pScene);
   const CString& GetDocumentTitle() const { return m_strTitle; }
   const CString& GetFilePath() const { return m_strFilePath; }
 

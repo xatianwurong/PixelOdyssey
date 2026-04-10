@@ -26,38 +26,16 @@
 #define IDR_MAINFRAME                     200    // 主框架窗口资源 (菜单 + 工具栏)
 #define IDR_PIXELTYPE                     201    // 文档类型资源 (菜单 + 工具栏)
 
-// 菜单命令 ID - 文件操作
-#define ID_FILE_NEW                       32800
-#define ID_FILE_OPEN                      32801
-#define ID_FILE_SAVE                      32802
-#define ID_FILE_SAVE_AS                   32803
-#define ID_FILE_CLOSE                     32804
-#define ID_FILE_EXIT                      32805
+// 文件/编辑等标准命令 ID 使用 MFC 在 afxres.h 中提供的定义
+// 自定义资源头里不要重复定义，否则 rc.exe 会报 redefinition 警告。
 
-// 菜单命令 ID - 编辑操作
-#define ID_EDIT_UNDO                      32810
-#define ID_EDIT_REDO                      32811
-#define ID_EDIT_CUT                       32812
-#define ID_EDIT_COPY                      32813
-#define ID_EDIT_PASTE                     32814
+// 应用退出命令复用 MFC 标准退出 ID，便于直接映射到 CWinAppEx::OnAppExit
+#define ID_FILE_EXIT                      ID_APP_EXIT
 
 // 菜单命令 ID - 视图操作
-#define ID_VIEW_TOOLBAR                   32820
 #define ID_VIEW_STATUSBAR                 32821
 #define ID_VIEW_WINDOWS                   32822
 
-// 菜单命令 ID - 窗口操作
-#define ID_WINDOW_NEW                     32830
-#define ID_WINDOW_CASCADE                 32831
-#define ID_WINDOW_TILE_HORZ               32832
-#define ID_WINDOW_TILE_VERT               32833
-#define ID_WINDOW_ARRANGE                 32834
-
 // 菜单命令 ID - 帮助
 #define ID_HELP_ABOUT                     32840
-
-// MFC 标准资源 ID
-#define ID_INDICATOR_CAPS                 0xE700
-#define ID_INDICATOR_NUM                  0xE701
-#define ID_INDICATOR_SCRL                 0xE702
 
