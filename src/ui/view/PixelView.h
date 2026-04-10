@@ -83,8 +83,4 @@ private:
    */
   void CleanupOpenGL();
 
-  /**
-   * @brief 创建测试场景（仅当文档没有场景时）
-   */
-  void CreateTestSceneIfEmpty();
 };

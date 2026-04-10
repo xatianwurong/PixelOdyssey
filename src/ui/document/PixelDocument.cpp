@@ -1,5 +1,10 @@
 ﻿#include "PixelDocument.h"
 
+#include "../../core/entity/Circle.h"
+#include "../../core/entity/Rectangle.h"
+#include "../../core/entity/Square.h"
+#include "../../core/entity/Triangle.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -49,6 +54,20 @@ BOOL CPixelDocument::OnNewDocument()
     m_pScene = new Scene("Untitled");
     m_strTitle = _T("Untitled");
     m_strFilePath = _T("");
+
+    // 默认在视口中放置一组可见实体，确保单文档启动后有内容可画。
+    m_pScene->AddObject(new Circle(
+      glm::vec2(-0.45f, 0.15f),
+      glm::vec4(0.16f, 0.78f, 0.42f, 1.0f),
+      0.18f));
+    m_pScene->AddObject(new Square(
+      glm::vec2(0.00f, 0.02f),
+      glm::vec4(0.12f, 0.56f, 0.95f, 1.0f),
+      0.28f));
+    m_pScene->AddObject(new Triangle(
+      glm::vec2(0.42f, -0.10f),
+      glm::vec4(0.98f, 0.63f, 0.18f, 1.0f),
+      0.32f));
 
     // 设置未修改标记
     SetModifiedFlag(FALSE);

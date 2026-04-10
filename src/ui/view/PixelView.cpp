@@ -3,10 +3,6 @@
 #include <GL/glew.h>
 #include <afxdialogex.h>
 #include <time.h>
-#include "../../core/entity/Circle.h"
-#include "../../core/entity/Rectangle.h"
-#include "../../core/entity/Square.h"
-#include "../../core/entity/Triangle.h"
 #include "../../core/renderer/Camera.h"
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -101,9 +97,6 @@ int CPixelView::OnCreate(LPCREATESTRUCT lpCreateStruct)
     return -1;
   }
 
-  // 如果文档没有场景，创建测试场景
-  CreateTestSceneIfEmpty();
-
   m_bIsRunning = true;
   m_dwLastTime = GetTickCount64();
   SetTimer(1, 16, NULL);
@@ -186,37 +179,48 @@ bool CPixelView::InitOpenGL()
   pfd.cStencilBits = 8;
   pfd.iLayerType = PFD_MAIN_PLANE;
 
-  CDC* pDC = CDC::FromHandle(::GetDC(m_hWndOpenGL));
+  m_hOpenGLDC = ::GetDC(m_hWndOpenGL);
+  if (!m_hOpenGLDC)
+    return false;
 
-  int nPixelFormat = ::ChoosePixelFormat(pDC->m_hDC, &pfd);
+  int nPixelFormat = ::ChoosePixelFormat(m_hOpenGLDC, &pfd);
   if (nPixelFormat == 0)
   {
-    ::ReleaseDC(m_hWndOpenGL, pDC->m_hDC);
+    ::ReleaseDC(m_hWndOpenGL, m_hOpenGLDC);
+    m_hOpenGLDC = nullptr;
     return false;
   }
 
-  ::SetPixelFormat(pDC->m_hDC, nPixelFormat, &pfd);
+  if (!::SetPixelFormat(m_hOpenGLDC, nPixelFormat, &pfd))
+  {
+    ::ReleaseDC(m_hWndOpenGL, m_hOpenGLDC);
+    m_hOpenGLDC = nullptr;
+    return false;
+  }
 
-  m_hGLRC = wglCreateContext(pDC->m_hDC);
+  m_hGLRC = wglCreateContext(m_hOpenGLDC);
   if (!m_hGLRC)
   {
-    ::ReleaseDC(m_hWndOpenGL, pDC->m_hDC);
+    ::ReleaseDC(m_hWndOpenGL, m_hOpenGLDC);
+    m_hOpenGLDC = nullptr;
     return false;
   }
 
-  wglMakeCurrent(pDC->m_hDC, m_hGLRC);
+  wglMakeCurrent(m_hOpenGLDC, m_hGLRC);
 
   GLenum err = glewInit();
   if (err != GLEW_OK)
   {
     wglDeleteContext(m_hGLRC);
-    ::ReleaseDC(m_hWndOpenGL, pDC->m_hDC);
+    m_hGLRC = nullptr;
+    ::ReleaseDC(m_hWndOpenGL, m_hOpenGLDC);
+    m_hOpenGLDC = nullptr;
     return false;
   }
 
   // OpenGL 设置
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-  glEnable(GL_DEPTH_TEST);
+  glDisable(GL_DEPTH_TEST);
   glEnable(GL_LINE_SMOOTH);
   glShadeModel(GL_SMOOTH);
   glClearDepth(1.0f);
@@ -231,17 +235,12 @@ bool CPixelView::InitOpenGL()
 
 void CPixelView::RenderOpenGL()
 {
-  if (!m_hGLRC)
+  if (!m_hGLRC || !m_hOpenGLDC)
     return;
 
-  CDC* pDC = CDC::FromHandle(::GetDC(m_hWndOpenGL));
-  wglMakeCurrent(pDC->m_hDC, m_hGLRC);
+  wglMakeCurrent(m_hOpenGLDC, m_hGLRC);
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  // 设置相机
-  glm::mat4 view = m_camera.GetViewMatrix();
-  glm::mat4 projection = m_camera.GetProjectionMatrix();
 
   // 渲染场景
   Scene* pScene = GetScene();
@@ -250,7 +249,7 @@ void CPixelView::RenderOpenGL()
     pScene->Draw();
   }
 
-  SwapBuffers(pDC->m_hDC);
+  SwapBuffers(m_hOpenGLDC);
   wglMakeCurrent(NULL, NULL);
 }
 
@@ -265,37 +264,10 @@ void CPixelView::CleanupOpenGL()
     wglDeleteContext(m_hGLRC);
     m_hGLRC = nullptr;
   }
-}
 
-void CPixelView::CreateTestSceneIfEmpty()
-{
-  CPixelDocument* pDoc = GetDocument();
-  ASSERT_VALID(pDoc);
-
-  Scene* pScene = pDoc->GetScene();
-  if (!pScene || pScene->GetName().empty())
+  if (m_hOpenGLDC)
   {
-    // 文档没有有效场景，创建测试场景
-    if (pScene)
-    {
-      delete pScene;
-    }
-
-    pScene = new Scene("MainScene");
-    // 注意：这里需要更新文档中的场景指针
-    // 由于文档类设计限制，这里仅作演示
-
-    // 添加测试图形
-    float scale = 0.5f;
-
-    Circle* circle = new Circle(glm::vec2(0.0f, 0.0f),
-      glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),
-      scale);
-    pScene->AddObject(circle);
-
-    Triangle* triangle = new Triangle(glm::vec2(2.0f, 0.0f),
-      glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-      scale);
-    pScene->AddObject(triangle);
+    ::ReleaseDC(m_hWndOpenGL, m_hOpenGLDC);
+    m_hOpenGLDC = nullptr;
   }
 }
